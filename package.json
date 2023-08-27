@@ -3,8 +3,8 @@
   "version": "1.0.1",
   "description": "Month picker component for Vanilla JS & TypeScript",
   "type": "module",
-  "main": "./dist/monthpicker.umd.cjs",
-  "module": "./dist/monthpicker.js",
+  "main": "dist/monthpicker.js",
+  "module": "dist/monthpicker.cjs.",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "exports": {
@@ -38,6 +38,7 @@
   "author": "Chase Ottofy",
   "license": "MIT",
   "homepage": "https://github.com/chaseottofy/monthpicker-vjs#readme",
+  "dependencies": {},
   "devDependencies": {
     "@types/eslint": "^8.44.2",
     "@types/node": "^20.5.6",
