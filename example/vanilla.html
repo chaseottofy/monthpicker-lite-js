@@ -13,26 +13,23 @@
 
   <script>
     /*
-      import './node_modules/monthpicker-lite-js/dist/monthpicker-lite-js.css';
-      import { MonthPicker } from 'monthpicker-lite-js';
-
-      const root = document.querySelector(`#app`);
-      const cb = date => console.log(date);
-
-      const monthPicker = new MonthPicker(
-        root,                // container to append picker to
-        new Date(),          // start date
-        [cb],                // callback (logs date after selection)
-        'dark',              // theme
-        'Month dd, yyyy',    // input display format
-        false,               // close picker after date selection
-        false,               // only show current month
-        false,               // correspond picker w/ MIDDLE of input
-      );
-
-      monthPicker.open();
-
     */
+    import { MonthPicker } from 'monthpicker-lite-js';
+    import 'monthpicker-lite-js/dist/monthpicker-lite-js.css';
+
+    const root = document.querySelector(`#app`);
+    const cb = date => console.log(date);
+
+    const monthPicker = new MonthPicker(
+      root,                // container to append picker to
+      new Date(),          // start date
+      [cb],                // callback (logs date after selection)
+      'dark',              // theme
+      'Month dd, yyyy',    // input display format
+      false,               // close picker after date selection
+      false,               // only show current month
+      false,               // correspond picker w/ MIDDLE of input
+    );
   </script>
 </body>
 

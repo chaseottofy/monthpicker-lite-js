@@ -1,8 +1,35 @@
-# monthpicker-lite-js
+## monthpicker-lite-js
+
+Lightweight month interface datepicker for Vanilla JS & Typescript
 
 ---
 
-### Lightweight monthpicker for vanilla js and typescript
+### Installation
+
+```bash
+npm i monthpicker-lite-js
+```
+
+[- View on NPM](https://www.npmjs.com/package/monthpicker-lite-js)
+
+---
+
+### Usage: Module
+
+**Interfaces available for Typescript users.**
+
+- The following example uses Vite.
+- Some build tools require different css import schema.
+
+```ts
+import 'monthpicker-lite-js/dist/monthpicker-lite-js.css';
+
+// vanilla js...
+import { MonthPicker } from 'monthpicker-lite-js';
+
+// typescript...
+import { MonthPicker, MonthPickerInterface } ... 
+```
 
 ---
 
