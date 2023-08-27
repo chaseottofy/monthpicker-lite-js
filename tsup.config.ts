@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entryPoints: {
-    monthpicker: 'src/index.ts',
+    'monthpicker-lite-js': 'src/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,

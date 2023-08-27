@@ -1,16 +1,16 @@
 {
-  "name": "monthpicker-vjs",
+  "name": "monthpicker-lite-js",
   "version": "1.0.1",
-  "description": "Month picker component for Vanilla JS & TypeScript",
+  "description": "Lightweight monthpicker for vanilla js and typescript",
   "type": "module",
-  "main": "dist/monthpicker.js",
-  "module": "dist/monthpicker.cjs.",
-  "types": "./dist/index.d.ts",
+  "main": "dist/monthpicker-lite-js.js",
+  "module": "dist/monthpicker-lite-js.cjs.",
+  "types": "./dist/monthpicker-lite-js.d.ts",
   "sideEffects": false,
   "exports": {
     ".": {
-      "import": "./dist/monthpicker.js",
-      "require": "./dist/monthpicker.umd.cjs"
+      "import": "./dist/monthpicker-lite-js.js",
+      "require": "./dist/monthpicker-lite-js.umd.cjs"
     }
   },
   "files": [
@@ -24,11 +24,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chaseottofy/monthpicker-vjs.git"
+    "url": "git+https://github.com/chaseottofy/monthpicker-lite-js.git"
   },
   "keywords": [
     "datepicker",
     "monthpicker",
+    "monthpicker-lite-js",
+    "monthpicker-lite",
+    "datepickers",
+    "monthpickers",
+    "date",
     "vanilla",
     "typescript",
     "javascript",
@@ -37,7 +42,7 @@
   ],
   "author": "Chase Ottofy",
   "license": "MIT",
-  "homepage": "https://github.com/chaseottofy/monthpicker-vjs#readme",
+  "homepage": "https://github.com/chaseottofy/monthpicker-lite-js#readme",
   "dependencies": {},
   "devDependencies": {
     "@types/eslint": "^8.44.2",
