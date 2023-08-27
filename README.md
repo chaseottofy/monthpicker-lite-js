@@ -313,9 +313,5 @@ All date handling is done with the native Date object and should be compatible f
 
 ---
 
-### Screenshots
-
-
-
 ![screen](screenshots/monthpicker-light.png)
 *Light mode*
