@@ -1,7 +1,9 @@
 # monthpicker-lite-js
 
+![screen](screenshots/monthpicker-dark.png)
+*Dark mode*
+
 Zero-dependency, lightweight datepicker component for Vanilla JS & Typescript.
-Built to adhere to modern web accessibility, performance, and design standards.
 
 ---
 
@@ -12,6 +14,8 @@ Built to adhere to modern web accessibility, performance, and design standards.
 ```bash
 npm i monthpicker-lite-js
 ```
+
+### [Codepen Demo >](https://codepen.io/chaseottofy/pen/ZEmPdJV)
 
 ---
 
@@ -48,13 +52,14 @@ import { MonthPicker, MonthPickerInterface } ...
 ```
 
 ---
----
 
 ## Configuration
 
+The monthpicker constructor consists of 8 total paramters, 7 of which are optional
+
 ```ts
 /**
- * MonthPicker /src/monthpicker/monthpickerClass.ts
+ * MonthPicker @ /src/monthpicker/monthpickerClass.ts
  * 
  * @param ROOT                  HTMLElement  : Must be in DOM
  * @param date                  Date         : Start date (default: new Date())
@@ -63,6 +68,7 @@ import { MonthPicker, MonthPickerInterface } ...
  * @param callbacks             Function[]   : <Array>[callbacks]
  * @param closeOnSelect         boolean      : Close picker on date 
  * @param onlyShowCurrentMonth  boolean      : Only show current month
+ * @param alignPickerMiddle     boolean      : Align Picker to middle of Input
  */
 
 const monthpicker = new MonthPicker(
@@ -73,6 +79,7 @@ const monthpicker = new MonthPicker(
   callbacks?: Function[],           // OPTIONAL - default: []
   closeOnSelect?: boolean,          // OPTIONAL - default: true
   onlyShowCurrentMonth?: boolean    // OPTIONAL - default: false
+  alignPickerMiddle?: boolean       // OPTIONAL - default: false
 )
 ```
 
@@ -113,6 +120,7 @@ monthpicker.getDate(): Date
 monthpicker.getDateArray(): [number (year), number (month), number (day)];
 monthpicker.getDateFormatted(): string (default: 'mm/dd/yyyy')
 ```
+
 ---
 
 #### 3. format?: string
@@ -189,7 +197,89 @@ monthpicker.getOnlyShowCurrentMonth(): boolean
 
 ---
 
+#### 8. alignPickerMiddle?: boolean
+- Defaults to false.
+- Align picker to middle of input element when possible
+
+**Methods: @param alignPickerMiddle**
+```ts
+monthpicker.setAlignPickerMiddle(alignPickerMiddle: boolean): void
+monthpicker.getAlignPickerMiddle(): boolean
+```
+
 ---
+
+### Full Example
+
+```ts
+import { MonthPicker, MonthPickerInterface } from 'monthpicker-lite-js';
+import 'monthpicker-lite-js/dist/monthpicker-lite-js.css';
+
+const root = document.querySelector(`#app`) as HTMLElement;
+const cb = (date: Date) => console.log(date);
+
+const monthPicker = new MonthPicker(
+  root,                // container to append picker to
+  new Date(),          // start date
+  [cb],                // callback (logs date after selection)
+  'dark',              // theme
+  'Month dd, yyyy',    // input display format
+  false,               // close picker after date selection
+  false,               // only show current month
+  false,               // correspond picker w/ MIDDLE of input
+) as MonthPickerInterface;
+
+// Date Methods
+monthPicker.setDate(new Date(2020, 1, 1));
+const currentDate = monthPicker.getDate();
+const [year, month, day] = monthPicker.getDateArray();
+const dateFormatted = monthPicker.getDateFormatted();
+
+// Format Methods
+monthPicker.setFormat('mm/dd/yyyy');
+const currentFormat = monthPicker.getFormat();
+
+// Theme Methods
+monthPicker.setTheme('light');
+const currentTheme = monthPicker.getTheme();
+
+// Callback Methods
+monthPicker.setCallbacks([cb]);
+const currentCallbacks = monthPicker.getCallbacks();
+
+// CloseOnSelect Methods
+monthPicker.setCloseOnSelect(false);
+const currentCloseOnSelect = monthPicker.getCloseOnSelect();
+
+// OnlyShowCurrentMonth Methods
+monthPicker.setOnlyShowCurrentMonth(true);
+const currentOnlyShowCurrentMonth = monthPicker.getOnlyShowCurrentMonth();
+
+// AlignPickerMiddle Methods
+monthPicker.setAlignPickerMiddle(true);
+const currentAlignPickerMiddle = monthPicker.getAlignPickerMiddle();
+
+// Destroy MonthPicker
+monthPicker.destroy();
+
+// Re-Instantiate MonthPicker
+const monthPicker2 = new MonthPicker(root);
+
+// Force MonthPicker Open
+monthPicker2.open()
+
+// Force MonthPicker Close
+monthPicker2.close()
+
+// Disable MonthPicker
+monthPicker2.disable()
+
+// Destroy second instance
+monthPicker2.destroy()
+// At this point, all references to former monthpickers are gone from the DOM including their associated event listeners.
+```
+
+--- 
 
 ### Accessibility
 
@@ -223,10 +313,9 @@ All date handling is done with the native Date object and should be compatible f
 
 ---
 
-#### Screenshots
+### Screenshots
 
-![screen](screenshots/monthpicker-dark.png)
-*Dark mode*
+
 
 ![screen](screenshots/monthpicker-light.png)
 *Light mode*
