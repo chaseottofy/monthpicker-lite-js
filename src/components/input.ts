@@ -38,14 +38,11 @@ const createInputInstance = (
 
   input.readOnly = true;
   input.placeholder = formatDateForInput(date, format);
-  input.setAttribute('aria-label', 'Month Picker Input');
-  input.setAttribute('aria-haspopup', 'true');
-  input.setAttribute('aria-controls', 'month-picker');
-  input.setAttribute('autocomplete', 'off');
-  input.setAttribute('spellcheck', 'false');
-  input.setAttribute('contenteditable', 'false');
-  input.setAttribute('aria-autocomplete', 'none');
-  input.setAttribute('aria-readonly', 'true');
+  input.ariaLabel = 'Month Picker Input';
+  input.ariaHasPopup = 'true';
+  input.autocomplete = 'off';
+  input.spellcheck = false;
+  input.contentEditable = 'false';
 
   const iconwrapper = document.createElement('span') as HTMLSpanElement;
   iconwrapper.append(createCalendarSVG());

@@ -4,8 +4,9 @@ LICENSE
 README.md
 src/
 tests/
-node_modules
+node_modules/
 example/
 .eslintignore
 .eslintrc
 .gitignore
+screenshots/

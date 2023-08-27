@@ -90,7 +90,7 @@ export function createCalendarSVG(): SVGElement {
 export function createNavButton(title: string): HTMLButtonElement {
   const navButton = document.createElement('button');
   const cName = title.slice(0, 4).toLowerCase();
-  navButton.setAttribute('aria-label', title);
+  navButton.ariaLabel = title;
   navButton.classList.add(cName);
   navButton.dataset.navtitle = title;
   navButton.append(createCaret(cName));
