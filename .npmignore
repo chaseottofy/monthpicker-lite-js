@@ -1,0 +1,11 @@
+tsconfig.json
+tsup.config.ts
+LICENSE
+README.md
+src/
+tests/
+node_modules
+example/
+.eslintignore
+.eslintrc
+.gitignore
