@@ -56,7 +56,7 @@ const {
  * @param closeOnSelect         boolean      : Close picker on date 
  * @param onlyShowCurrentMonth  boolean      : Only show current month
  */
-class MonthPicker implements MonthPickerInterface {
+export default class MonthPicker implements MonthPickerInterface {
   public rootContainer: HTMLElement;
   public startDate: Date;
   public pickerCallbacks: DatepickerCallback;
@@ -341,7 +341,7 @@ class MonthPicker implements MonthPickerInterface {
       }
     }
 
-    document.body.removeEventListener('click', throttleHandleToggle);
+    window.removeEventListener('click', throttleHandleToggle);
     window.removeEventListener('resize', throttledSetPosition);
     window.removeEventListener('scroll', throttleHandleScroll, true);
     window.removeEventListener('keydown', handleKeyDownToggle);
@@ -502,11 +502,9 @@ class MonthPicker implements MonthPickerInterface {
     // Events are not attached to the Root Container specified by user 
     // since the datepicker will act as a fixed position element and needs
     // calculations based on the viewport when it is open
-    document.body.addEventListener('click', throttleHandleToggle);
+    window.addEventListener('click', throttleHandleToggle);
     window.addEventListener('resize', throttledSetPosition);
     window.addEventListener('scroll', throttleHandleScroll, true);
     window.addEventListener('keydown', handleKeyDownToggle);
   }
 }
-
-export default MonthPicker;

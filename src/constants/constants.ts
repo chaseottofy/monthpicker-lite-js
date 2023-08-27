@@ -6,8 +6,8 @@ const pickerConstants: PickerConstantsInterface = {
   MID_MONTH: 14,
   BASE_THROTTLE: 150,
   BASE_DEBOUNCE: 50,
-  PICKER_HEIGHT: 256,
-  PICKER_WIDTH: 272,
+  PICKER_HEIGHT: 278,
+  PICKER_WIDTH: 292,
   POSITION_PADDING: 6,
   /*******************************************/
   

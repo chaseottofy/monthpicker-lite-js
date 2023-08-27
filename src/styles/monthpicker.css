@@ -10,19 +10,15 @@
   --white1: #fff;
   --white2: #edede7;
   --white3: #ccc;
-  --bs-md:
-    0 1px 3px 0 rgba(48, 52, 54, .3),
-    0 4px 8px 0 rgba(48, 52, 54, .05);
-  --bs-sm:
-    0 1px 3px 0 rgba(48, 52, 54, .15),
-    0 4px 5px 0 rgba(48, 52, 54, .15);
+  --bs-md: 0 1px 3px 0 rgba(48, 52, 54, .3), 0 4px 8px 0 rgba(48, 52, 54, .05);
+  --bs-sm: 0 1px 3px 0 rgba(48, 52, 54, .15), 0 4px 5px 0 rgba(48, 52, 54, .15);
   --blue1: #3198f7;
   --prevnext-background: #0f1112;
   --prevnext-background-hover: #1f2223;
   --selected-day-color: #3198f7;
   --selected-day-bg: #2c2f30;
   --selected-day-bg-hover: #232627;
-  --tooltip-color: #fff;
+  --tooltip-color: #fff
 }
 
 .light {
@@ -37,19 +33,15 @@
   --white1: #000;
   --white2: #666;
   --white3: #444;
-  --bs-md:
-    0 1px 3px 0 rgba(48, 52, 54, .3),
-    0 4px 8px 3px rgba(48, 52, 54, .15);
-  --bs-sm:
-    0 1px 3px 0 rgba(48, 52, 54, .3),
-    0 4px 8px 3px rgba(48, 52, 54, .15);
+  --bs-md: 0 1px 3px 0 rgba(48, 52, 54, .3), 0 4px 8px 3px rgba(48, 52, 54, .15);
+  --bs-sm: 0 1px 3px 0 rgba(48, 52, 54, .3), 0 4px 8px 3px rgba(48, 52, 54, .15);
   --blue1: #fff;
   --prevnext-background: #d8d7d7;
   --prevnext-background-hover: #e8e5e5;
   --selected-day-color: #fff;
   --selected-day-bg: #0070f3;
   --selected-day-bg-hover: #0253b0;
-  --tooltip-color: #fff;
+  --tooltip-color: #fff
 }
 
 .month-picker *,
@@ -58,16 +50,26 @@
 .month-picker-input-wrapper *,
 .month-picker-input-wrapper *:before,
 .month-picker-input-wrapper *:after {
-  font-family: inherit, sans-serif, system-ui, monospace;
-  line-height: 1.15;
+  /* font-family: inherit, sans-serif, system-ui, monospace; */
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  border: 0;
-  outline: 0;
-  -webkit-text-size-adjust: 100%;
+  border: none;
+  border-radius: 0;
+  line-height: 1.5;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  color: inherit;
+  background: none;
+  outline: none !important;
   -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
 .month-picker *:after,
@@ -79,7 +81,7 @@
   pointer-events: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  user-select: none;
+  user-select: none
 }
 
 .month-picker-input-wrapper {
@@ -89,20 +91,19 @@
   max-width: 210px;
   width: 100%;
   height: 36px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--white1);
+  color: var(--white1)
 }
 
 .picker-input-active {
-  color: var(--white1);
+  color: var(--white1)
 }
 
 .picker-input-active .month-picker-input {
   border: 1px solid var(--selected-day-bg) !important;
-  background: var(--black2);
+  background: var(--black2)
 }
 
 .month-picker-input-wrapper span {
@@ -116,47 +117,47 @@
   align-items: center;
   justify-content: center;
   user-select: none;
-  pointer-events: none;
+  pointer-events: none
 }
 
 .month-picker-input {
   background: var(--black1);
   color: inherit;
   letter-spacing: .25px;
-  line-height: inherit !important;
   border: 1px solid var(--black3) !important;
   font-size: 13px;
   border-radius: 5px;
   margin: 0 !important;
-  padding: 0;
   width: 100%;
-  padding-left: 18%;
+  padding: 0 0 0 18%;
   height: 36px !important;
+  line-height: 36px !important;
   white-space: nowrap;
   position: relative;
   cursor: pointer;
-  transition: border .2s ease-in-out;
+  transition: border .2s ease-in-out
 }
 
 .month-picker-input:hover {
-  background: var(--black0);
+  background: var(--black0)
 }
 
 .month-picker-input:active,
 .month-picker-input:focus-visible {
-  outline: 1px solid var(--selected-day-bg);
-  filter: brightness(1.1);
+  outline: 1px solid var(--selected-day-bg) !important;
+  outline-offset: -1px !important;
+  filter: brightness(1.1)
 }
 
 .month-picker-input::placeholder {
-  color: inherit;
+  color: inherit
 }
 
 .picker-input-disabled {
   cursor: not-allowed;
   opacity: .6;
   pointer-events: none;
-  user-select: none;
+  user-select: none
 }
 
 .month-picker {
@@ -175,14 +176,14 @@
   width: 272px;
   z-index: 9999;
   overflow: hidden;
-  opacity: 1;
+  opacity: 1
 }
 
 .picker-fade-out {
   opacity: 0;
   transition: opacity .15s ease-in-out;
   user-select: none !important;
-  pointer-events: none !important;
+  pointer-events: none !important
 }
 
 .picker-disabled {
@@ -194,13 +195,13 @@
   top: 0 !important;
   width: 0 !important;
   height: 0 !important;
-  min-height: 0 !important;
+  min-height: 0 !important
 }
 
 .picker-transition {
   transition-property: opacity;
   transition-duration: .15s;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out
 }
 
 .month-picker button {
@@ -217,7 +218,7 @@
 
 .month-picker button:focus-visible {
   box-shadow: none;
-  outline: none
+  outline: none !important;
 }
 
 .month-picker svg {
@@ -229,8 +230,9 @@
 .month-picker-header {
   align-items: center;
   display: flex;
+  justify-content: space-between;
   font-weight: 400;
-  height: 32px;
+  height: 32px
 }
 
 .month-year {
@@ -241,7 +243,7 @@
   font-family: inherit;
   letter-spacing: .25px;
   padding-left: 13px;
-  width: 60%
+  width: auto
 }
 
 .nav-btns {
@@ -250,7 +252,7 @@
   position: relative;
   text-align: center;
   width: 40%;
-  z-index: 1000;
+  z-index: 1000
 }
 
 .nav-btns,
@@ -274,7 +276,7 @@
 .next svg,
 .prev svg {
   fill: var(--white2);
-  width: 18px;
+  width: 18px
 }
 
 .prev:after,
@@ -288,7 +290,7 @@
   background: var(--black4);
   white-space: nowrap;
   height: 24px;
-  line-height: 24px;
+  line-height: 24px !important;
   font-weight: 500;
   opacity: 0;
   padding: 0 8px;
@@ -297,15 +299,15 @@
   transition: opacity .2s ease-in-out;
   width: -moz-fit-content;
   width: fit-content;
-  z-index: 2000;
+  z-index: 2000
 }
 
 .next:after {
-  transform: translate(-20%, 125%);
+  transform: translate(-20%, 125%)
 }
 
 .weekday:after {
-  content: attr(data-weekday);
+  content: attr(data-weekday)
 }
 
 .prev:hover:after,
@@ -313,12 +315,12 @@
 .prev:focus-visible:after,
 .next:focus-visible:after,
 .weekday:hover:after {
-  opacity: 1;
+  opacity: 1
 }
 
 .next:hover,
 .prev:hover {
-  background: var(--black3);
+  background: var(--black3)
 }
 
 .next:active,
@@ -326,7 +328,7 @@
 .prev:active,
 .prev:focus-visible {
   background: var(--black2) !important;
-  box-shadow: inset 3px 3px 2px -1px rgba(0, 0, 0, .05)
+  box-shadow: inset 3px 3px 2px -1px #0000000d
 }
 
 .next {
@@ -334,7 +336,7 @@
 }
 
 .weekdays {
-  color: var(--accents-6);
+  color: var(--white3);
   height: 28px;
   justify-content: space-between
 }
@@ -343,7 +345,7 @@
 .weekdays {
   align-items: center;
   display: flex;
-  width: 100%;
+  width: 100%
 }
 
 .weekday {
@@ -382,24 +384,24 @@
   justify-content: center;
   margin: 0;
   padding: 0;
-  z-index: 1;
+  z-index: 1
 }
 
 .day-disabled {
   color: transparent !important;
   cursor: default !important;
   pointer-events: none !important;
-  user-select: none !important;
+  user-select: none !important
 }
 
 .selected-day {
-  color: var(--selected-day-color);
+  color: var(--selected-day-color)
 }
 
 .next-month,
 .prev-month {
   background: var(--prevnext-background) !important;
-  color: var(--accents-5) !important;
+  color: var(--accents-5) !important
 }
 
 .day:before {
@@ -408,16 +410,16 @@
   content: attr(data-day);
   height: 28px;
   inset: 0;
-  line-height: 28px;
+  line-height: 28px !important;
   margin: auto;
   position: absolute;
   width: 28px;
-  z-index: -1;
+  z-index: -1
 }
 
 .next-month:before,
 .prev-month:before {
-  background: var(--prevnext-background) !important;
+  background: var(--prevnext-background) !important
 }
 
 .selected-day:before {
@@ -440,7 +442,7 @@
 
 .selected-day:focus-visible:before,
 .selected-day:hover:before {
-  background: var(--selected-day-bg-hover) !important;
+  background: var(--selected-day-bg-hover) !important
 }
 
 .slide-right {
@@ -448,7 +450,7 @@
   animation-duration: .15s;
   animation-fill-mode: forwards;
   overflow: hidden !important;
-  animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+  animation-timing-function: cubic-bezier(.39, .575, .565, 1)
 }
 
 .slide-left {
@@ -456,37 +458,37 @@
   animation-duration: .15s;
   animation-fill-mode: forwards;
   overflow: hidden !important;
-  animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+  animation-timing-function: cubic-bezier(.39, .575, .565, 1)
 }
 
 @keyframes slide-right {
   0% {
     opacity: .2;
-    transform: translateX(-16px);
+    transform: translate(-16px)
   }
 
   50% {
-    opacity: .6;
+    opacity: .6
   }
 
-  100% {
+  to {
     opacity: 1;
-    transform: translateX(0)
+    transform: translate(0)
   }
 }
 
 @keyframes slide-left {
   0% {
     opacity: .2;
-    transform: translateX(16px)
+    transform: translate(16px)
   }
 
   50% {
-    opacity: .6;
+    opacity: .6
   }
 
-  100% {
+  to {
     opacity: 1;
-    transform: translateX(0)
+    transform: translate(0)
   }
 }

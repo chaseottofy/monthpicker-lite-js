@@ -35,7 +35,7 @@ export function debounce<T extends (...args: any[]) => any>(fn: T, ms: number): 
   let timeoutId: number | undefined;
   return (...args: any[]) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn(...args), ms);
+    timeoutId = setTimeout(() => fn(...args), ms) as any;
   };
 }
 
@@ -212,7 +212,7 @@ export function calcInline(input: HTMLElement, picker: HTMLElement, alignMiddle:
   }
 
   // datepicker overflowing right
-  if (setleft + PICKER_WIDTH > innerWidth) {
+  if (setleft + PICKER_WIDTH + POSITION_PADDING >= innerWidth) {
     setleft = innerWidth - (PICKER_WIDTH + POSITION_PADDING);
   }
 
