@@ -1,7 +1,7 @@
 # monthpicker-lite-js
 
-![screen](screenshots/monthpicker-dark.png)
-*Dark mode*
+![screen](screenshots/monthpicker-light.png)
+*Light mode*
 
 Zero-dependency, lightweight datepicker component for Vanilla JS & Typescript.
 
@@ -313,5 +313,5 @@ All date handling is done with the native Date object and should be compatible f
 
 ---
 
-![screen](screenshots/monthpicker-light.png)
-*Light mode*
+![screen](screenshots/monthpicker-dark.png)
+*Dark mode*
