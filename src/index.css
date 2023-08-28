@@ -394,7 +394,7 @@
   z-index: 1
 }
 
-.day-disabled {
+.disabled-day {
   color: transparent !important;
   cursor: default !important;
   pointer-events: none !important;
