@@ -85,6 +85,17 @@ export interface PickerParamsInterface {
   type: any;
 }
 
+export interface MonthPickerOptionsInterface {
+  rootContainer: HTMLElement;
+  startDate: Date | undefined;
+  pickerCallbacks: DatepickerCallback | undefined;
+  theme: string | undefined;
+  format: string | undefined;
+  closeOnSelect: boolean | undefined;
+  onlyShowCurrentMonth: boolean | undefined;
+  alignPickerMiddle: boolean | undefined;
+}
+
 export interface MonthPickerInterface {
   rootContainer: HTMLElement;
   startDate: Date;

@@ -74,6 +74,7 @@ export default class MonthPicker implements MonthPickerInterface {
   private instances: InstancesInterface;
   // isDestroyed: use to freeze public methods after destroy() is called
   private isDestroyed = false;
+  private isDisabled = false;
 
   constructor(
     rootContainer: HTMLElement = DEFAULT_ROOT_ELEMENT,
@@ -294,6 +295,8 @@ export default class MonthPicker implements MonthPickerInterface {
       return;
     }
 
+    if (this.onlyShowCurrentMonth === onlyShowCurrentMonth) { return; }
+
     this.onlyShowCurrentMonth = onlyShowCurrentMonth;
     this.#updateMonthPicker(this.getDate() || new Date());
     this.#setInstance('monthPicker', `.${BASE_PICKER_CLASS}`);
@@ -307,6 +310,8 @@ export default class MonthPicker implements MonthPickerInterface {
       return;
     }
 
+    if (this.closeOnSelect === closeOnSelect) { return; }
+
     this.closeOnSelect = closeOnSelect;
     this.#updateMonthPicker(this.getDate() || new Date());
     this.#setInstance('monthPicker', `.${BASE_PICKER_CLASS}`);
@@ -319,6 +324,8 @@ export default class MonthPicker implements MonthPickerInterface {
       this.#handleWarn('setAlignPickerMiddle', String(alignPickerMiddle), 'AlignPickerMiddle must be passed as a boolean.');
       return;
     }
+
+    if (this.alignPickerMiddle === alignPickerMiddle) { return; }
 
     this.alignPickerMiddle = alignPickerMiddle;
     this.#updateMonthPicker(this.getDate() || new Date());
@@ -417,18 +424,20 @@ export default class MonthPicker implements MonthPickerInterface {
 
   disable() {
     if (this.isDestroyed) { return; }
+    this.isDisabled = true;
     const { inputWrapper }: InstancesInterface = this.instances;
     return inputWrapper && inputWrapper.classList.add(INPUT_DISABLED_CLASS);
   }
 
   enable() {
     if (this.isDestroyed) { return; }
+    this.isDisabled = false;
     const { inputWrapper }: InstancesInterface = this.instances;
     return inputWrapper && inputWrapper.classList.remove(INPUT_DISABLED_CLASS);
   }
 
   toggle() {
-    if (this.isDestroyed) { return; }
+    if (this.isDestroyed || this.isDisabled) { return; }
     const { monthPicker }: InstancesInterface = this.instances;
     return monthPicker && (
       monthPicker.classList.contains(PICKER_DISABLED_CLASS)
@@ -452,7 +461,7 @@ export default class MonthPicker implements MonthPickerInterface {
   }
 
   open() {
-    if (this.isDestroyed) { return; }
+    if (this.isDestroyed || this.isDisabled) { return; }
     const { inputWrapper, monthPicker }: InstancesInterface = this.instances;
     if (!inputWrapper || !monthPicker) { return; }
 

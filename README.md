@@ -4,13 +4,11 @@
 
 Zero-dependency, lightweight datepicker component for Vanilla JS & Typescript.
 
-<img src="screenshots/monthpicker-light2.png" width="350" height="350">
-<!-- ![screen](screenshots/monthpicker-light2.png) -->
-<!-- **Theme: 'light'** -->
+<img src="screenshots/aaaa.png">
 
 ## Sections
 - [Installation](#installation)
-- [Usage](#usage)
+- [Import](#import)
 - [Features](#features)
 - [Configuration](#configuration)
 - [Methods](#methods)
@@ -26,7 +24,7 @@ Zero-dependency, lightweight datepicker component for Vanilla JS & Typescript.
 npm i monthpicker-lite-js
 ```
 
-## Usage
+## Import
 
 **Interfaces available for Typescript users.**
 
@@ -47,6 +45,8 @@ import { MonthPicker, MonthPickerInterface } ...
 
 ## Features
 
+#### CSS & JS gzip: ~ 5-6kb
+
 #### Zero Dependencies
 - No external date handling libraries.
 - No external styling libraries.
@@ -57,9 +57,11 @@ import { MonthPicker, MonthPickerInterface } ...
 - No need to worry about sanitizing user input.
 - Does not rely on input type="date" for functionality.
 
-#### Lightweight: CSS & JS gzipped: ~ 5-6kb
 
 #### Accessible - [Accessibility Section](#accessibility)
+- Passes several audits 100% including lighthouse, NU HTML, and WCAG 2.1 contrast ratio requirements.
+- Proper ARIA roles and attributes are applied to all relevant elements.
+- Logical tab order and keyboard support. (all clickable elements are tabbable)
 
 #### Customizable
 - Vanilla CSS allows for easy customization without the need for any SAAS/LESS/SCSS compilers.
@@ -76,6 +78,7 @@ import { MonthPicker, MonthPickerInterface } ...
 - Supports Typescript and ES6+.
 - Compatible with all modern browsers and IE11.
 - Avoids date parsing that breaks on some mobile browsers.
+- Extends HTML5 input type=text rather than input type=date to avoid browser inconsistencies - notably CSS styling and mobile date parsing.
 
 ---
 
@@ -109,7 +112,7 @@ The monthpicker constructor consists of 8 total paramters, 7 of which are option
 const monthpicker = new MonthPicker(
   ROOT: HTMLElement,                // REQUIRED
   date?: Date,                      // OPTIONAL - default: new Date()
-  format?: string,                  // OPTIONAL - default: 'mm/dd/yyyy'
+  format?: string,                  // OPTIONAL - default: 'Month dd, yyyy'
   THEME?: string,                   // OPTIONAL - default: 'dark'
   callbacks?: Function[],           // OPTIONAL - default: []
   closeOnSelect?: boolean,          // OPTIONAL - default: true
@@ -174,15 +177,15 @@ monthpicker.getDateFormatted(): string (default: 'mm/dd/yyyy')
 - Defaults to 'month dd, yyyy'
 - Sets the format of the date input and can be accessed via the getDateFormatted() method.
 - Accepts the following formats:
-  - 'ddmmyyyy'
-  - 'dd/mm/yyyy' 
-  - 'mm/dd/yyyy' 
-  - 'dd-mm-yyyy' 
-  - 'mm-dd-yyyy'
-  - 'month dd, yyyy' 
-  - 'month dd yyyy'
-  - 'mth dd yyyy' 
-  - 'mth dd, yyyy'
+  - 'ddmmyyyy' (01092023)
+  - 'dd/mm/yyyy' (09/01/2023)
+  - 'mm/dd/yyyy' (01/09/2023)
+  - 'dd-mm-yyyy' (09-01-2023)
+  - 'mm-dd-yyyy' (01-09-2023)
+  - 'month dd, yyyy' (January 9th, 2023)
+  - 'month dd yyyy' (January 9 2023)
+  - 'mth dd yyyy' (Jan 9 2023)
+  - 'mth dd, yyyy' (Jan 9th, 2023)
 
 **Methods: @param format**
 ```ts
@@ -197,9 +200,8 @@ monthpicker.getFormat(): string
 #### -- optional --
 
 **theme?: string**
-- Defaults to 'dark'
 - Sets the theme of the input and monthpicker.
-- Accepts either 'light' or 'dark'
+- Defaults to 'dark' : accepts ('light' | 'dark')
 
 **Methods: @param theme**
 ```ts
@@ -220,9 +222,17 @@ monthpicker.getTheme(): string
 - Callbacks are called in the order that they are passed.
   
 **Methods: @param callbacks**
+
 ```ts
 monthpicker.setCallbacks(callbacks: Function[]): void
 monthpicker.getCallbacks(): Function[]
+
+// Example
+const callback = (date: Date) => console.log(date);
+monthpicker.setCallbacks([callback]);
+monthpicker.getCallbacks(); // [callback]
+monthpicker.setCallbacks([])
+monthpicker.getCallbacks(); // []
 ```
 
 ---
@@ -278,26 +288,142 @@ monthpicker.getAlignPickerMiddle(): boolean
 
 ## Methods
 
-```ts
-setDate(date: Date): void;
-setFormat(format: string): void;
-setCallbacks(callbacks: DatepickerCallback): void;
-setTheme(theme: string): void;
-setCloseOnSelect(closeOnSelect: boolean): void;
-setOnlyShowCurrentMonth(onlyShowCurrentMonth: boolean): void;
-setAlignPickerMiddle(alignPickerMiddle: boolean): void;
+**The monthpicker instance is created by declaring a variable with the MonthPicker class. There is no need to call any init method after declaration, however that option does exist if at any point `monthPicker.destroy()` is called.**
 
+`monthPicker` will be used as the variable name for the rest of the examples purely for demonstration purposes. It can be named anything as none of the methods are static.
+
+#### Setters
+```ts
+/**
+ * @method setDate(Date) - Sets date of monthpicker
+ * @param date - Date Object (new Date())
+ * Invalid dates will be ignored 
+ * and will not update the monthpicker
+ */
+setDate(date: Date): void;
+
+/**
+ * @method setFormat(string) - Schema for input display
+ * @param string - Must be one of the following formats:
+ * Long (January) : 'month dd, yyyy', 'month dd yyyy',
+ * Abbr (Jan)     : 'mth dd yyyy', 'mth dd, yyyy'
+ * No Format      : 'ddmmyyyy'
+ * Numeric Slash  : 'dd/mm/yyyy', 'mm/dd/yyyy'
+ * Numeric Dash   : 'dd-mm-yyyy', 'mm-dd-yyyy'
+ */
+setFormat(format: string): void;
+
+/**
+ * @method setCallbacks(Function[]) - <Array>[callbacks]
+ * @param callbacks - Array of functions
+ * Each callback will have access to the 
+ * same parameter 'date: Date' (Date Object of selected date)
+ * Each callback will be instantiated in the order that they are passed
+ * upon date selection.
+ * @example
+  const callback = (date: Date) => console.log(date);
+  const callback2 = () => console.log('callback2');
+  monthpicker.setCallbacks([callback, callback2]);
+  returns: "date object, 'callback2'"
+ */
+setCallbacks(callbacks: DatepickerCallback): void;
+
+/**
+ * @method setTheme(string) - 'light' | 'dark'
+ * Defaults to 'dark'
+ */
+setTheme(theme: string): void;
+
+/**
+ * @method setCloseOnSelect(boolean) - Close picker after date selection
+ * Defaults to true.
+ */
+setCloseOnSelect(closeOnSelect: boolean): void;
+
+/**
+ * @method setOnlyShowCurrentMonth(boolean)
+ * Defaults to false.
+ * The monthpicker retains a fixed layout of 6 rows of 7 days.
+ * By default, the monthpicker will show days from the previous and next months
+ * To leave previous and next days blank, setOnlyShowCurrentMonth(true)
+ */
+setOnlyShowCurrentMonth(onlyShowCurrentMonth: boolean): void;
+
+/**
+ * @method setAlignPickerMiddle(boolean)
+ * Align picker to middle of input element when possible
+ * Defaults to false. (aligns to left of input)
+ */
+setAlignPickerMiddle(alignPickerMiddle: boolean): void;
+```
+
+#### Getters
+```ts
+// Three options for getting the current date of the monthpicker
+
+/**
+ * @method getDate() - Returns Date Object
+ * @method getDateArray() - Returns [year, month, day] <Array of numbers>
+ * @method getDateFormatted() - Returns date as string in specified format
+ */
 getDate(): Date;
 getDateArray(): number[];
-getDateFormatted(format: string): string;
+getDateFormatted(format: string): string; 
+
+// returns array of set callbacks
+getCallbacks(): DatepickerCallback; 
+
+// returns current theme
 getTheme(): string;
-getCallbacks(): DatepickerCallback;
-getFormat(): string;
+
+// returns set input format (mm/dd/yyyy ect.)
+getFormat(): string; 
+
+/**
+ * The following three methods return booleans
+ * @method getCloseOnSelect()
+ * @method getOnlyShowCurrentMonth()
+ * @method getAlignPickerMiddle()
+ */
 getCloseOnSelect(): boolean;
 getOnlyShowCurrentMonth(): boolean;
 getAlignPickerMiddle(): boolean;
+```
 
+#### Modifiers (destroy, open, ect.)
+```ts
+/**
+ * @method destroy - Removes all monthpicker/input event listeners and clears DOM.
+ * Any method called after destroy(), other than init(),
+ * will be ignored and have no effect.
+ */
 destroy(): void;
+
+/**
+ * @method init() - Re-instantiates monthpicker and appends to DOM.
+ * Called automatically after declaration of monthpicker instance.
+ * Only method that can be called after @method destroy()
+ * 
+ * Will ignore subsequent calls if already instantiated.
+ * 
+ * init() & destroy() can work in tandem to keep the DOM clean if needed.
+ * This is useful if your app is heavy with DOM content, however,
+ * it is not recommended to destroy and re-instantiate the monthpicker as
+ * a form of state management as the monthpicker is designed to update 
+ * dynamically rather than destroy content and re-render.
+ * 
+ * Elements are only ever appended to the DOM once, if performance is a
+ * concern, it is recommended to simply use enable/disable methods.
+ */
+init(): void;
+
+/**
+ * @method disable() - Disables monthpicker/input without clearing DOM.
+ * @method enable() - Enables monthpicker/input. (Default)
+ * @method toggle() - Toggles open/close
+ * @method close() - Force close
+ * @method open() - Force open
+ */
 disable(): void;
 enable(): void;
 toggle(): void;
@@ -310,22 +436,39 @@ open(): void;
 ## Example
 
 ```ts
-import { MonthPicker, MonthPickerInterface } from 'monthpicker-lite-js';
 import 'monthpicker-lite-js/dist/monthpicker-lite-js.css';
+import { 
+  MonthPicker, 
+  MonthPickerInterface,
+  MonthPickerOptionsInterface
+} from 'monthpicker-lite-js';
+// MonthPickerOptionsInterface && 
+// MonthPickerInterface are optional Typescript Interfaces
 
-const root = document.querySelector(`#app`) as HTMLElement;
-const cb = (date: Date) => console.log(date);
+const container = document.querySelector('.container') as HTMLElement;
+const callback3 = (date: Date) => console.log(date);
+const options: MonthPickerOptionsInterface = {
+  rootContainer: container,
+  startDate: new Date(),
+  pickerCallbacks: [
+    ((date: Date) => console.log(date)),
+    (() => console.log('callback2')),
+    callback3,
+  ],
+  theme: 'dark',
+  format: 'month dd, yyyy',
+  closeOnSelect: true,
+  onlyShowCurrentMonth: false,
+  alignPickerMiddle: false,
+}
 
+// Declare with all options
 const monthPicker = new MonthPicker(
-  root,                // container to append picker to
-  new Date(),          // start date
-  [cb],                // callback (logs date after selection)
-  'dark',              // theme
-  'Month dd, yyyy',    // input display format
-  false,               // close picker after date selection
-  false,               // only show current month
-  false,               // correspond picker w/ MIDDLE of input
+  ...Object.values(options)
 ) as MonthPickerInterface;
+
+// Declare with only rootContainer and no Interface
+// const monthPicker = new MonthPicker(container);
 
 // Date Methods
 monthPicker.setDate(new Date(2020, 1, 1));
@@ -357,24 +500,31 @@ const currentOnlyShowCurrentMonth = monthPicker.getOnlyShowCurrentMonth();
 monthPicker.setAlignPickerMiddle(true);
 const currentAlignPickerMiddle = monthPicker.getAlignPickerMiddle();
 
-// Destroy MonthPicker
+// Remove all event listeners and clear DOM
 monthPicker.destroy();
+monthPicker.setTheme('light'); // ignored
 
-// Re-Instantiate MonthPicker
-const monthPicker2 = new MonthPicker(root);
+// Re-instantiate monthpicker
+monthPicker.init();
 
-// Force MonthPicker Open
-monthPicker2.open()
+// Disable monthpicker
+monthPicker.disable();
+monthPicker.setTheme('light'); // ignored
 
-// Force MonthPicker Close
-monthPicker2.close()
+// Enable monthpicker
+// Still will be dark theme as setTheme() above was ignored
+monthPicker.enable(); 
 
-// Disable MonthPicker
-monthPicker2.disable()
+// Force Open
+monthPicker.open();
 
-// Destroy second instance
-monthPicker2.destroy()
-// At this point, all references to former monthpickers are gone from the DOM including their associated event listeners.
+// Force Close
+monthPicker.close();
+
+// Toggle Open/Close
+monthPicker.toggle();
+
+monthPicker.init() // ignored as already instantiated
 ```
 
 --- 
@@ -410,9 +560,6 @@ All date handling is done with the native Date object and should be compatible f
 - WCAG 2.1 AA/AAA contrast ratio requirements (100%)
 
 ---
-
-![screen](screenshots/monthpicker-dark2.png)
-**Theme: 'dark'**
 
 ## License MIT
 
