@@ -8,6 +8,7 @@ Zero-dependency, lightweight datepicker component for Vanilla JS & Typescript.
 
 ## Sections
 - [Installation](#installation)
+- [Cloning](#cloning)
 - [Import](#import)
 - [Features](#features)
 - [Configuration](#configuration)
@@ -22,6 +23,17 @@ Zero-dependency, lightweight datepicker component for Vanilla JS & Typescript.
 
 ```bash
 npm i monthpicker-lite-js
+```
+
+## Cloning
+
+Make sure to set "private": true in package.json to avoid publishing to NPM.
+**Currently, there is no tooling to view the demo locally. I will be adding this next (8/28/23)**
+
+```bash
+git clone https://github.com/chaseottofy/monthpicker-lite-js.git
+npm install
+npm run build
 ```
 
 ## Import
