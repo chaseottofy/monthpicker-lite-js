@@ -11,3 +11,4 @@ example/
 .gitignore
 screenshots/
 test/
+dev/
