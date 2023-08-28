@@ -51,7 +51,7 @@
 .month-picker-input-wrapper *:before,
 .month-picker-input-wrapper *:after {
   /* font-family: inherit, sans-serif, system-ui, monospace; */
-  box-sizing: border-box;
+  box-sizing: border-box !important;
   margin: 0;
   padding: 0;
   border: none;

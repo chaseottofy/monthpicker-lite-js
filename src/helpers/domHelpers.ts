@@ -151,7 +151,7 @@ export function calcInline(input: HTMLElement, picker: HTMLElement, alignMiddle:
   const {
     bottom: inputBottom,
     left: inputLeft,
-    top: boundsTop,
+    top: boundsTop
   } = input.getBoundingClientRect();
 
   const {
@@ -193,6 +193,7 @@ export function calcInline(input: HTMLElement, picker: HTMLElement, alignMiddle:
   /***************************************/
   /** LEFT                    ************/
   // set initial to left of input
+
   let setleft = inputLeft + scrollX - POSITION_PADDING;
 
   // if datepicker is overflowing left of window
@@ -201,9 +202,11 @@ export function calcInline(input: HTMLElement, picker: HTMLElement, alignMiddle:
   }
 
   // center picker
-  if (alignMiddle) {
-    const widthDiff = PICKER_WIDTH - inputWidth;
-    setleft -= Number((widthDiff / 2).toFixed(2)) - POSITION_PADDING;
+  if (alignMiddle && PICKER_WIDTH !== inputWidth) {
+    const pickerHalf = Number((PICKER_WIDTH / 2).toFixed(2));
+    const inputHalf = Number((inputWidth / 2).toFixed(2));
+    const halfDiff = pickerHalf > inputHalf ? pickerHalf - inputHalf : inputHalf - pickerHalf;
+    setleft = inputLeft - halfDiff + scrollX;
   }
 
   // datepicker overflowing left
@@ -212,10 +215,11 @@ export function calcInline(input: HTMLElement, picker: HTMLElement, alignMiddle:
   }
 
   // datepicker overflowing right
-  if (setleft + PICKER_WIDTH + POSITION_PADDING >= innerWidth) {
-    setleft = innerWidth - (PICKER_WIDTH + POSITION_PADDING);
+  if (setleft + PICKER_WIDTH >= innerWidth) {
+    let diffPickerInput = Number(((PICKER_WIDTH - inputWidth) / 2).toFixed(2));
+    setleft -= diffPickerInput;
   }
 
-  picker.style.top = `${+(settop.toFixed(2))}px`;
-  picker.style.left = `${+(setleft.toFixed(2))}px`;
+  picker.style.top = `${Number(settop.toFixed(2))}px`;
+  picker.style.left = `${Number(setleft.toFixed(2))}px`;
 }

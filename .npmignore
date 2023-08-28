@@ -10,3 +10,4 @@ example/
 .eslintrc
 .gitignore
 screenshots/
+test/

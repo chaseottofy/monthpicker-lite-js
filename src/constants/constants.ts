@@ -7,7 +7,7 @@ const pickerConstants: PickerConstantsInterface = {
   BASE_THROTTLE: 150,
   BASE_DEBOUNCE: 50,
   PICKER_HEIGHT: 278,
-  PICKER_WIDTH: 292,
+  PICKER_WIDTH: 272,
   POSITION_PADDING: 6,
   /*******************************************/
   

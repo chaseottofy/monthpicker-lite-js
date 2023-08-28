@@ -94,26 +94,40 @@ export interface MonthPickerInterface {
   closeOnSelect: boolean;
   onlyShowCurrentMonth: boolean;
   alignPickerMiddle: boolean;
+
   setDate(date: Date): void;
   setFormat(format: string): void;
   setCallbacks(callbacks: DatepickerCallback): void;
   setTheme(theme: string): void;
+  setCloseOnSelect(closeOnSelect: boolean): void;
+  setOnlyShowCurrentMonth(onlyShowCurrentMonth: boolean): void;
+  setAlignPickerMiddle(alignPickerMiddle: boolean): void;
+
   getDate(): Date;
   getDateArray(): number[];
   getDateFormatted(format: string): string;
   getTheme(): string;
+  getCallbacks(): DatepickerCallback;
+  getFormat(): string;
+  getCloseOnSelect(): boolean;
+  getOnlyShowCurrentMonth(): boolean;
+  getAlignPickerMiddle(): boolean;
+  
   destroy(): void;
   disable(): void;
   enable(): void;
   toggle(): void;
   close(): void;
   open(): void;
+
   handleToggle(e: MouseEvent | KeyboardEvent): void;
   handleScroll(): void;
   handleSetPosition(): void;
   handleKeyDownToggle(e: KeyboardEvent): void;
+
   throttleHandleToggle(event: Event): void;
   throttleHandleScroll(event: Event): void;
   throttledSetPosition(event: Event): void;
+  
   init(): void;
 }

@@ -124,6 +124,7 @@ export default class MonthPicker implements MonthPickerInterface {
     this.handleSetPosition = this.handleSetPosition.bind(this);
     this.handleKeyDownToggle = this.handleKeyDownToggle.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
+
     this.throttleHandleToggle = throttle(
       this.handleToggle as (event: Event) => void, BASE_THROTTLE,
     );
@@ -261,7 +262,10 @@ export default class MonthPicker implements MonthPickerInterface {
       this.#handleWarn('setCallbacks', JSON.stringify(callbacks), 'Callbacks must be passed as an array.');
       return;
     }
+
     this.pickerCallbacks = callbacks as DatepickerCallback;
+    this.#updateMonthPicker(this.getDate() || new Date());
+    this.#setInstance('monthPicker', `.${BASE_PICKER_CLASS}`);
   }
 
   setTheme(theme: string | null) {
@@ -280,6 +284,45 @@ export default class MonthPicker implements MonthPickerInterface {
 
     this.theme = theme;
     this.#updatePickerAndInput(this.getDate() || new Date());
+  }
+
+  setOnlyShowCurrentMonth(onlyShowCurrentMonth: boolean): void {
+    if (this.isDestroyed) { return; }
+
+    if (typeof onlyShowCurrentMonth !== 'boolean') {
+      this.#handleWarn('setOnlyShowCurrentMonth', String(onlyShowCurrentMonth), 'OnlyShowCurrentMonth must be passed as a boolean.');
+      return;
+    }
+
+    this.onlyShowCurrentMonth = onlyShowCurrentMonth;
+    this.#updateMonthPicker(this.getDate() || new Date());
+    this.#setInstance('monthPicker', `.${BASE_PICKER_CLASS}`);
+  }
+
+  setCloseOnSelect(closeOnSelect: boolean): void {
+    if (this.isDestroyed) { return; }
+
+    if (typeof closeOnSelect !== 'boolean') {
+      this.#handleWarn('setCloseOnSelect', String(closeOnSelect), 'CloseOnSelect must be passed as a boolean.');
+      return;
+    }
+
+    this.closeOnSelect = closeOnSelect;
+    this.#updateMonthPicker(this.getDate() || new Date());
+    this.#setInstance('monthPicker', `.${BASE_PICKER_CLASS}`);
+  }
+
+  setAlignPickerMiddle(alignPickerMiddle: boolean): void {
+    if (this.isDestroyed) { return; }
+
+    if (typeof alignPickerMiddle !== 'boolean') {
+      this.#handleWarn('setAlignPickerMiddle', String(alignPickerMiddle), 'AlignPickerMiddle must be passed as a boolean.');
+      return;
+    }
+
+    this.alignPickerMiddle = alignPickerMiddle;
+    this.#updateMonthPicker(this.getDate() || new Date());
+    this.#setInstance('monthPicker', `.${BASE_PICKER_CLASS}`);
   }
 
   getDate(): Date {
@@ -314,6 +357,31 @@ export default class MonthPicker implements MonthPickerInterface {
   getTheme(): string {
     if (this.isDestroyed) { return ''; }
     return this.theme;
+  }
+
+  getFormat(): string {
+    if (this.isDestroyed) { return ''; }
+    return this.format;
+  }
+
+  getCallbacks(): DatepickerCallback {
+    if (this.isDestroyed) { return []; }
+    return this.pickerCallbacks;
+  }
+
+  getCloseOnSelect(): boolean {
+    if (this.isDestroyed) { return false; }
+    return this.closeOnSelect;
+  }
+
+  getOnlyShowCurrentMonth(): boolean {
+    if (this.isDestroyed) { return false; }
+    return this.onlyShowCurrentMonth;
+  }
+
+  getAlignPickerMiddle(): boolean {
+    if (this.isDestroyed) { return false; }
+    return this.alignPickerMiddle;
   }
 
   destroy() {
