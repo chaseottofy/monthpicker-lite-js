@@ -4,6 +4,10 @@ export type ThrottledFunction<T extends (
   ...args: any
 ) => any> = (...args: Parameters<T>) => ReturnType<T>;
 
+export interface ValidHTMLElement extends HTMLElement {
+  isConnected: boolean;
+}
+
 export interface PickerConstantsInterface {
   DAYS_LENGTH: number,
   MID_MONTH: number,
@@ -106,6 +110,7 @@ export interface MonthPickerInterface {
   onlyShowCurrentMonth: boolean;
   alignPickerMiddle: boolean;
 
+  setRootContainer(rootContainer: HTMLElement): void;
   setDate(date: Date): void;
   setFormat(format: string): void;
   setCallbacks(callbacks: DatepickerCallback): void;
@@ -114,6 +119,7 @@ export interface MonthPickerInterface {
   setOnlyShowCurrentMonth(onlyShowCurrentMonth: boolean): void;
   setAlignPickerMiddle(alignPickerMiddle: boolean): void;
 
+  getRootContainer(): HTMLElement | null;
   getDate(): Date;
   getDateArray(): number[];
   getDateFormatted(format: string): string;

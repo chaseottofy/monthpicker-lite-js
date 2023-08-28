@@ -10,7 +10,7 @@ Zero-dependency, lightweight datepicker for Vanilla JS & Typescript.
 
 ## Sections
 - [Installation](#installation)
-- [Cloning](#cloning)
+- [Clone & Build](#clone/build)
 - [Import](#import)
 - [Features](#features)
 - [Configuration](#configuration)
@@ -27,11 +27,14 @@ Zero-dependency, lightweight datepicker for Vanilla JS & Typescript.
 npm i monthpicker-lite-js
 ```
 
-## Cloning
+## Clone/Build
+
+~ Generates a minified build in the dist folder.
 
 ```bash
 git clone https://github.com/chaseottofy/monthpicker-lite-js.git
 npm install
+cd monthpicker-lite-js-main
 npm run build
 ```
 
@@ -68,7 +71,6 @@ import { MonthPicker, MonthPickerInterface } ...
 - No need to worry about sanitizing user input.
 - Does not rely on input type="date" for functionality.
 
-
 #### Accessible - [Accessibility Section](#accessibility)
 - Passes several audits 100% including lighthouse, NU HTML, and WCAG 2.1 contrast ratio requirements.
 - Proper ARIA roles and attributes are applied to all relevant elements.
@@ -95,7 +97,11 @@ import { MonthPicker, MonthPickerInterface } ...
 
 ## Configuration
 
-The monthpicker constructor consists of 8 total paramters, 7 of which are optional
+The monthpicker constructor consists of 8 total paramters, 7 of which are optional.
+The simplest configuration is to pass only the rootContainer parameter.
+`const monthpicker = new MonthPicker(rootContainer)`
+
+Each of the below parameters, **except rootContainer** have a corresponding setter/getter method that can be called after instantiation.
 
 - [Root parameter](#params-root) -- REQUIRED --
 - [Date parameter](#params-date)
@@ -106,11 +112,15 @@ The monthpicker constructor consists of 8 total paramters, 7 of which are option
 - [OnlyShowCurrentMonth parameter](#params-onlyShowCurrentMonth)
 - [AlignPickerMiddle parameter](#params-alignPickerMiddle)
 
+<a href="https://github.com/chaseottofy/monthpicker-lite-js/blob/main/src/monthpicker/monthpickerClass.ts">
+  Link: MonthPicker Class Source Code
+</a>
+
 ```ts
 /**
- * MonthPicker @ /src/monthpicker/monthpickerClass.ts
- * 
- * @param ROOT                  HTMLElement  : Must be in DOM
+ * MonthPicker
+ * @constructor
+ * @param rootContainer         HTMLElement  : Must be in DOM
  * @param date                  Date         : Start date (default: new Date())
  * @param format                input-format : mm/dd/yyyy ect.
  * @param THEME                 string       : light or dark
@@ -121,7 +131,7 @@ The monthpicker constructor consists of 8 total paramters, 7 of which are option
  */
 
 const monthpicker = new MonthPicker(
-  ROOT: HTMLElement,                // REQUIRED
+  rootContainer: HTMLElement,       // REQUIRED 
   date?: Date,                      // OPTIONAL - default: new Date()
   format?: string,                  // OPTIONAL - default: 'Month dd, yyyy'
   THEME?: string,                   // OPTIONAL - default: 'dark'
@@ -132,11 +142,11 @@ const monthpicker = new MonthPicker(
 )
 ```
 
-### params-ROOT
+### params-rootContainer
 
 #### -- REQUIRED --
 
-**ROOT: HTMLElement**
+**rootContainer: HTMLElement**
 - The element that the date input and monthpicker will be appended to.
 - Once a variable is declared using the MonthPicker class, the rootContainer passed here will immediately be populated with both the input & monthpicker instance. (monthpicker is hidden by default)
 - This is the only parameter that does not have a setter method. If you need to change the rootContainer, you will need to destroy the monthpicker and instantiate a new one with the new rootContainer.
@@ -174,8 +184,15 @@ const monthpicker = new MonthPicker(
 ```ts
 monthpicker.setDate(date: Date): void
 monthpicker.getDate(): Date
-monthpicker.getDateArray(): [number (year), number (month), number (day)];
-monthpicker.getDateFormatted(): string (default: 'mm/dd/yyyy')
+monthpicker.getDateArray(): [
+  number (year), 
+  number (month), 
+  number (day)
+];
+
+// get date as string of input format
+// defaults to 'month dd, yyyy'
+monthpicker.getDateFormatted(): string 
 ```
 
 ---
@@ -299,12 +316,48 @@ monthpicker.getAlignPickerMiddle(): boolean
 
 ## Methods
 
-**The monthpicker instance is created by declaring a variable with the MonthPicker class. There is no need to call any init method after declaration, however that option does exist if at any point `monthPicker.destroy()` is called.**
+#### Full list of public methods
+```ts
+setRootContainer(rootContainer: HTMLElement): void;
+setDate(date: Date): void;
+setFormat(format: string): void;
+setCallbacks(callbacks: DatepickerCallback): void;
+setTheme(theme: string): void;
+setCloseOnSelect(closeOnSelect: boolean): void;
+setOnlyShowCurrentMonth(onlyShowCurrentMonth: boolean): void;
+setAlignPickerMiddle(alignPickerMiddle: boolean): void;
 
-`monthPicker` will be used as the variable name for the rest of the examples purely for demonstration purposes. It can be named anything as none of the methods are static.
+getRootContainer(): HTMLElement | null;
+getDate(): Date;
+getDateArray(): number[];
+getDateFormatted(format: string): string;
+getTheme(): string;
+getCallbacks(): DatepickerCallback;
+getFormat(): string;
+getCloseOnSelect(): boolean;
+getOnlyShowCurrentMonth(): boolean;
+getAlignPickerMiddle(): boolean;
+
+destroy(): void;
+disable(): void;
+enable(): void;
+toggle(): void;
+close(): void;
+open(): void;
+
+init(): void;
+```
+
+`monthPicker` will be used as the variable name for the rest of the examples.
 
 #### Setters
 ```ts
+/**
+ * @method setRootContainer(HTMLElement) - set root container
+ * @param HTMLElement - Must a valid HTMLElement in the DOM
+ */
+setRootContainer(rootContainer: HTMLElement): void;
+
 /**
  * @method setDate(Date) - Sets date of monthpicker
  * @param date - Date Object (new Date())
@@ -370,9 +423,11 @@ setAlignPickerMiddle(alignPickerMiddle: boolean): void;
 
 #### Getters
 ```ts
-// Three options for getting the current date of the monthpicker
+// returns rootContainer
+getRootContainer(): HTMLElement;
 
 /**
+ * Three options for getting the current date of the monthpicker
  * @method getDate() - Returns Date Object
  * @method getDateArray() - Returns [year, month, day] <Array of numbers>
  * @method getDateFormatted() - Returns date as string in specified format
@@ -419,21 +474,21 @@ destroy(): void;
  * 
  * init() & destroy() can work in tandem to keep the DOM clean if needed.
  * This is useful if your app is heavy with DOM content, however,
- * it is not recommended to destroy and re-instantiate the monthpicker as
- * a form of state management as the monthpicker is designed to update 
- * dynamically rather than destroy content and re-render.
+ * it is not recommended to destroy and re-instantiate since the logic
+ * is configured to update rather than destruct and re-create.
  * 
  * Elements are only ever appended to the DOM once, if performance is a
- * concern, it is recommended to simply use enable/disable methods.
+ * concern, but you still want to have the ability to disable/enable, use
+ * the disable() and enable() methods.
  */
 init(): void;
 
 /**
  * @method disable() - Disables monthpicker/input without clearing DOM.
- * @method enable() - Enables monthpicker/input. (Default)
- * @method toggle() - Toggles open/close
- * @method close() - Force close
- * @method open() - Force open
+ * @method enable()  - Enables monthpicker/input. (Default)
+ * @method toggle()  - Toggles open/close
+ * @method close()   - Force close
+ * @method open()    - Force open
  */
 disable(): void;
 enable(): void;
@@ -445,6 +500,8 @@ open(): void;
 ---
 
 ## Example
+
+**The monthpicker instance is created by declaring a variable with the MonthPicker class. There is no need to call any init method after declaration, however that option does exist if at any point `monthPicker.destroy()` is called.**
 
 ```ts
 import 'monthpicker-lite-js/dist/monthpicker-lite-js.css';
@@ -517,6 +574,9 @@ monthPicker.setTheme('light'); // ignored
 
 // Re-instantiate monthpicker
 monthPicker.init();
+
+// Change rootContainer of monthpicker
+monthPicker.setRootContainer(document.querySelector('.new-container'));
 
 // Disable monthpicker
 monthPicker.disable();

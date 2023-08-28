@@ -1,6 +1,10 @@
 import pickerConstants from '../constants/constants';
 
-import { ThrottledFunction, PickerConstantsInterface } from '../models/interfaces';
+import { 
+  ThrottledFunction, 
+  PickerConstantsInterface,
+  ValidHTMLElement
+} from '../models/interfaces';
 
 const {
   STYLES_ID,
@@ -13,6 +17,10 @@ const {
 
 const W3NSURL = 'http://www.w3.org/2000/svg';
 const STYLES = '';
+
+export function isValidAndInDom(element: any): element is ValidHTMLElement {
+  return element instanceof HTMLElement && element.isConnected;
+}
 
 export function throttle<T extends (...args: any) => any>(func: T, limit: number): ThrottledFunction<T> {
   let inThrottle: boolean;

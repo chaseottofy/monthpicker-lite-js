@@ -36,6 +36,7 @@ const createInputInstance = (
   input.dataset.dateValue = date ? String(date) : String(new Date());
   input.dataset.format = format;
 
+  input.name = BASE_INPUT_CLASS;
   input.readOnly = true;
   input.placeholder = formatDateForInput(date, format);
   input.ariaLabel = 'Month Picker Input';

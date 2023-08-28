@@ -12,14 +12,15 @@ import {
   throttle,
   debounce,
   calcInline,
-  initStyles
+  initStyles,
+  isValidAndInDom,
 } from '../helpers/domHelpers';
 
 import {
   isDateValid,
   validateInputFormat,
   formatDateForInput,
-  getDateArray
+  getDateArray,
 } from '../helpers/dateHelpers';
 
 import createMonthPicker from '../components/picker';
@@ -219,8 +220,34 @@ export default class MonthPicker implements MonthPickerInterface {
     \n${message}`);
   }
 
+  setRootContainer(rootContainer: HTMLElement) {
+    if (this.isDestroyed || this.isDisabled) { return; }
+
+    if (!rootContainer || !(rootContainer instanceof HTMLElement)) {
+      this.#handleWarn('setRootContainer', String(rootContainer), 'Root container must be a DOM element.');
+      return;
+    }
+
+    if (rootContainer === this.rootContainer) {
+      console.log('rootContainer is already set to this element.');
+      return;
+    }
+
+    if (!isValidAndInDom(rootContainer)) {
+      this.#handleWarn(
+        'getRootContainer',
+        String(rootContainer),
+        'Passed element is either not in the DOM or is not a valid HTMLElement.'
+      );
+      return;
+    }
+
+    this.rootContainer = rootContainer;
+    this.init();
+  }
+
   setDate(date: Date) {
-    if (this.isDestroyed) { return; }
+    if (this.isDestroyed || this.isDisabled) { return; }
 
     const { monthPicker } = this.instances as InstancesInterface;
     if (!monthPicker) {
@@ -242,7 +269,7 @@ export default class MonthPicker implements MonthPickerInterface {
   }
 
   setFormat(format = DEFAULT_FORMAT) {
-    if (this.isDestroyed) { return; }
+    if (this.isDestroyed || this.isDisabled) { return; }
 
     if (validateInputFormat(format)) {
       this.format = format.toLowerCase();
@@ -257,7 +284,7 @@ export default class MonthPicker implements MonthPickerInterface {
   }
 
   setCallbacks(callbacks: DatepickerCallback) {
-    if (this.isDestroyed) { return; }
+    if (this.isDestroyed || this.isDisabled) { return; }
 
     if (!Array.isArray(callbacks)) {
       this.#handleWarn('setCallbacks', JSON.stringify(callbacks), 'Callbacks must be passed as an array.');
@@ -270,7 +297,7 @@ export default class MonthPicker implements MonthPickerInterface {
   }
 
   setTheme(theme: string | null) {
-    if (this.isDestroyed) { return; }
+    if (this.isDestroyed || this.isDisabled) { return; }
 
     if (!theme || typeof theme !== 'string') {
       this.#handleWarn('setTheme', String(theme), 'Theme must be passed as a string.');
@@ -288,7 +315,7 @@ export default class MonthPicker implements MonthPickerInterface {
   }
 
   setOnlyShowCurrentMonth(onlyShowCurrentMonth: boolean): void {
-    if (this.isDestroyed) { return; }
+    if (this.isDestroyed || this.isDisabled) { return; }
 
     if (typeof onlyShowCurrentMonth !== 'boolean') {
       this.#handleWarn('setOnlyShowCurrentMonth', String(onlyShowCurrentMonth), 'OnlyShowCurrentMonth must be passed as a boolean.');
@@ -303,7 +330,7 @@ export default class MonthPicker implements MonthPickerInterface {
   }
 
   setCloseOnSelect(closeOnSelect: boolean): void {
-    if (this.isDestroyed) { return; }
+    if (this.isDestroyed || this.isDisabled) { return; }
 
     if (typeof closeOnSelect !== 'boolean') {
       this.#handleWarn('setCloseOnSelect', String(closeOnSelect), 'CloseOnSelect must be passed as a boolean.');
@@ -318,7 +345,7 @@ export default class MonthPicker implements MonthPickerInterface {
   }
 
   setAlignPickerMiddle(alignPickerMiddle: boolean): void {
-    if (this.isDestroyed) { return; }
+    if (this.isDestroyed || this.isDisabled) { return; }
 
     if (typeof alignPickerMiddle !== 'boolean') {
       this.#handleWarn('setAlignPickerMiddle', String(alignPickerMiddle), 'AlignPickerMiddle must be passed as a boolean.');
@@ -330,6 +357,14 @@ export default class MonthPicker implements MonthPickerInterface {
     this.alignPickerMiddle = alignPickerMiddle;
     this.#updateMonthPicker(this.getDate() || new Date());
     this.#setInstance('monthPicker', `.${BASE_PICKER_CLASS}`);
+  }
+
+  getRootContainer(): (HTMLElement | null) {
+    if (this.isDestroyed || this.isDisabled) {
+      return null;
+    }
+
+    return this.rootContainer;
   }
 
   getDate(): Date {
