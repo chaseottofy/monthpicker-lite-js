@@ -1,10 +1,22 @@
 # monthpicker-lite-js
 
-![screen](screenshots/monthpicker-light2.png)
-*Light mode*
+### [Codepen Demo >](https://codepen.io/chaseottofy/pen/ZEmPdJV)
 
 Zero-dependency, lightweight datepicker component for Vanilla JS & Typescript.
----
+
+<img src="screenshots/monthpicker-light2.png" width="350" height="350">
+<!-- ![screen](screenshots/monthpicker-light2.png) -->
+<!-- **Theme: 'light'** -->
+
+## Sections
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Configuration](#configuration)
+- [Methods](#methods)
+- [Example](#example)
+- [Accessibility](#accessibility)
+- [License](#license)
 
 ## Installation
 
@@ -14,11 +26,7 @@ Zero-dependency, lightweight datepicker component for Vanilla JS & Typescript.
 npm i monthpicker-lite-js
 ```
 
-### [Codepen Demo >](https://codepen.io/chaseottofy/pen/ZEmPdJV)
-
----
-
-### Usage: Module
+## Usage
 
 **Interfaces available for Typescript users.**
 
@@ -34,31 +42,6 @@ import { MonthPicker } from 'monthpicker-lite-js';
 // typescript...
 import { MonthPicker, MonthPickerInterface } ... 
 ```
-
----
-
-### Usage: HTML
-
-```html
-<!-- CSS -->
-<link rel="stylesheet" href="node_modules/monthpicker-lite-js/dist/monthpicker-lite-js.css">
-
-<!-- JS -->
-<script src="node_modules/monthpicker-lite-js/dist/monthpicker-lite-js.js"></script>
-
-<!-- HTML -->
-<div class="monthpicker"></div>
-```
-
----
-
-## Sections
-- [Features](#features)
-- [Configuration](#configuration)
-- [Methods](#methods)
-- [Example](#example)
-- [Accessibility](#accessibility)
-- [License](#license)
 
 ---
 
@@ -429,7 +412,7 @@ All date handling is done with the native Date object and should be compatible f
 ---
 
 ![screen](screenshots/monthpicker-dark2.png)
-*Dark mode*
+**Theme: 'dark'**
 
 ## License MIT
 
