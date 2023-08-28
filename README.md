@@ -1,6 +1,7 @@
 # monthpicker-lite-js
 
-### [Codepen Demo >](https://codepen.io/chaseottofy/pen/ZEmPdJV)
+### [Stackblitz Demo >](https://stackblitz.com/edit/monthpicker-lite-js)
+**Make sure to enable third party cookies if it doesn't load.**
 
 Zero-dependency, lightweight datepicker component for Vanilla JS & Typescript.
 
@@ -28,7 +29,9 @@ npm i monthpicker-lite-js
 ## Cloning
 
 Make sure to set "private": true in package.json to avoid publishing to NPM.
-**Currently, there is no tooling to view the demo locally. I will be adding this next (8/28/23)**
+
+Currently, there is no tooling to view the demo locally. I will be adding this next (8/28/23)
+In the meantime, check out the [Stackblitz Demo >](https://stackblitz.com/edit/monthpicker-lite-js) for a simple example.
 
 ```bash
 git clone https://github.com/chaseottofy/monthpicker-lite-js.git
