@@ -21,6 +21,8 @@ const {
   MONTHS
 } = pickerConstants as PickerConstantsInterface;
 
+const listOfDays: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
 describe('isLeapYear', () => {
   test('returns true for leap year', () => {
     expect(isLeapYear(2020)).toBe(true);
@@ -50,18 +52,19 @@ describe('isDateValid', () => {
     expect(isDateValid(new Date())).toBe(true);
     expect(isDateValid(new Date(2023, 1, 1))).toBe(true);
     expect(isDateValid(new Date('2023-01-01'))).toBe(true);
+    expect(isDateValid(new Date('2023-01-01T00:00:00'))).toBe(true);
+    expect(isDateValid(new Date('1995-12-17T03:24:00'))).toBe(true);
   });
 
   test('returns false for invalid date', () => {
     expect(isDateValid(new Date('foo'))).toBe(false);
     expect(isDateValid(new Date(1959, 1, 1))).toBe(false);
-
+    expect(isDateValid(new Date('1995-12-17 T03:24:00'))).toBe(false);
   });
 });
 
 describe('daysInMonth', () => {
   test('returns correct number of days in month on a normal year', () => {
-    const listOfDays: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     listOfDays.forEach((day, index) => {
       expect(daysInMonth(2021, index + 1)).toBe(day);
     });
@@ -73,19 +76,24 @@ describe('daysInMonth', () => {
 });
 
 describe('getDateArray', () => {
-  test('returns date as array correctly', () => {
+  test('returns date object as [year, month, day]', () => {
     for (let i = 0; i < 12; i++) {
-      expect(getDateArray(new Date(2023, i, 1))).toEqual([2023, i + 1, 1]);
+      expect(
+        getDateArray(new Date(2023, i, listOfDays[i]))
+      ).toEqual([2023, i + 1, listOfDays[i]]);
     }
   });
 });
 
 describe('parseDateString', () => {
-  test('parses date from string', () => {
+  test('parses string and returns equivalent Date Object', () => {
+    // Test first and last day of each month
     for (let i = 0; i < 9; i++) {
+      expect(parseDateString(`2023-0${i + 1}-${listOfDays[i]}`)).toEqual(new Date(2023, i, listOfDays[i]));
       expect(parseDateString(`2023-0${i + 1}-01`)).toEqual(new Date(2023, i, 1));
     }
     for (let i = 9; i < 12; i++) {
+      expect(parseDateString(`2023-${i + 1}-${listOfDays[i]}`)).toEqual(new Date(2023, i, listOfDays[i]));
       expect(parseDateString(`2023-${i + 1}-01`)).toEqual(new Date(2023, i, 1));
     }
   });
