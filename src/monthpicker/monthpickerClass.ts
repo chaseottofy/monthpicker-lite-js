@@ -4,6 +4,7 @@ import {
   InstancesInterface,
   PickerParamsInterface,
   PickerConstantsInterface,
+  SingleCallback
 } from '../models/interfaces';
 
 import pickerConstants from '../constants/constants';
@@ -294,6 +295,19 @@ export default class MonthPicker implements MonthPickerInterface {
     this.pickerCallbacks = callbacks as DatepickerCallback;
     this.#updateMonthPicker(this.getDate() || new Date());
     this.#setInstance('monthPicker', `.${BASE_PICKER_CLASS}`);
+  }
+
+  addCallback(callback: SingleCallback) {
+    if (this.isDestroyed || this.isDisabled) { return; }
+
+    if (typeof callback !== 'function') {
+      this.#handleWarn('addCallback', String(callback), 'Callback must be passed as a function.');
+      return;
+    }
+
+    this.setCallbacks(
+      [...this.pickerCallbacks, callback as SingleCallback]
+    );
   }
 
   setTheme(theme: string | null) {

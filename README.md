@@ -321,6 +321,7 @@ setRootContainer(rootContainer: HTMLElement): void;
 setDate(date: Date): void;
 setFormat(format: string): void;
 setCallbacks(callbacks: DatepickerCallback): void;
+addCallback(callback: Function): void;
 setTheme(theme: string): void;
 setCloseOnSelect(closeOnSelect: boolean): void;
 setOnlyShowCurrentMonth(onlyShowCurrentMonth: boolean): void;
@@ -350,6 +351,8 @@ init(): void;
 `monthPicker` will be used as the variable name for the rest of the examples.
 
 #### Setters
+- All setters will force the monthpicker closed if it is open.
+
 ```ts
 /**
  * @method setRootContainer(HTMLElement) - set root container
@@ -390,6 +393,14 @@ setFormat(format: string): void;
   returns: "date object, 'callback2'"
  */
 setCallbacks(callbacks: DatepickerCallback): void;
+
+/**
+ * @method addCallback(Function) - Add single callback
+ */
+addCallback(() => {
+  const dateFormatted = monthPicker.getDateFormatted();
+  return dateFormatted;
+});
 
 /**
  * @method setTheme(string) - 'light' | 'dark'
@@ -503,24 +514,22 @@ open(): void;
 **The monthpicker instance is created by declaring a variable with the MonthPicker class. There is no need to call any init method after declaration, however that option does exist if at any point `monthPicker.destroy()` is called.**
 
 ```ts
+// Necessary CSS import (or just copy/paste the css into your own stylesheet)
 import 'monthpicker-lite-js/dist/monthpicker-lite-js.css';
-import { 
-  MonthPicker, 
-  MonthPickerInterface,
-  MonthPickerOptionsInterface
-} from 'monthpicker-lite-js';
+
 // MonthPickerOptionsInterface && 
 // MonthPickerInterface are optional Typescript Interfaces
+import {MonthPicker, MonthPickerInterface, MonthPickerOptionsInterface} from 'monthpicker-lite-js';
 
-const container = document.querySelector('.container') as HTMLElement;
-const callback3 = (date: Date) => console.log(date);
+const callback = (date: Date) => console.log(date);
+
 const options: MonthPickerOptionsInterface = {
-  rootContainer: container,
+  rootContainer: document.querySelector('.container') as HTMLElement,
   startDate: new Date(),
   pickerCallbacks: [
     ((date: Date) => console.log(date)),
     (() => console.log('callback2')),
-    callback3,
+    callback,
   ],
   theme: 'dark',
   format: 'month dd, yyyy',
@@ -530,70 +539,64 @@ const options: MonthPickerOptionsInterface = {
 }
 
 // Declare with all options
-const monthPicker = new MonthPicker(
-  ...Object.values(options)
-) as MonthPickerInterface;
+const monthPicker = new MonthPicker(...Object.values(options)) as MonthPickerInterface;
 
-// Declare with only rootContainer and no Interface
-// const monthPicker = new MonthPicker(container);
-
-// Date Methods
+// Date Get/Set
 monthPicker.setDate(new Date(2020, 1, 1));
-const currentDate = monthPicker.getDate();
-const [year, month, day] = monthPicker.getDateArray();
-const dateFormatted = monthPicker.getDateFormatted();
+const currentDate = monthPicker.getDate();              // Date Object
+const [year, month, day] = monthPicker.getDateArray();  // [2020, 1, 1]
+const dateFormatted = monthPicker.getDateFormatted();   // 'February 1st, 2020'
 
-// Format Methods
+// Format Get/Set
 monthPicker.setFormat('mm/dd/yyyy');
-const currentFormat = monthPicker.getFormat();
+const currentFormat = monthPicker.getFormat();          // 'mm/dd/yyyy'
 
-// Theme Methods
+// Theme Get/Set
 monthPicker.setTheme('light');
-const currentTheme = monthPicker.getTheme();
+const currentTheme = monthPicker.getTheme();            // 'light'
 
-// Callback Methods
-monthPicker.setCallbacks([cb]);
-const currentCallbacks = monthPicker.getCallbacks();
+// Callback Get/Set
+monthPicker.setCallbacks([(() => console.log(
+  'all other callbacks will be removed and replaced with this one'
+))]);
+const currentCallbacks = monthPicker.getCallbacks();    // [Function]
 
-// CloseOnSelect Methods
+// Add a single callback then get the formatted date from getDateFormatted();
+monthPicker.addCallback(() => {
+  const dateFormatted = monthPicker.getDateFormatted();
+  return dateFormatted;
+});
+
+// CloseOnSelect Get/Set
 monthPicker.setCloseOnSelect(false);
 const currentCloseOnSelect = monthPicker.getCloseOnSelect();
 
-// OnlyShowCurrentMonth Methods
+// OnlyShowCurrentMonth Get/Set
 monthPicker.setOnlyShowCurrentMonth(true);
 const currentOnlyShowCurrentMonth = monthPicker.getOnlyShowCurrentMonth();
 
-// AlignPickerMiddle Methods
+// AlignPickerMiddle Get/Set
 monthPicker.setAlignPickerMiddle(true);
 const currentAlignPickerMiddle = monthPicker.getAlignPickerMiddle();
 
-// Remove all event listeners and clear DOM
-monthPicker.destroy();
-monthPicker.setTheme('light'); // ignored
+monthPicker.destroy(); // Remove all event listeners and clear DOM
+monthPicker.setTheme('light'); // ignored as monthpicker is not in DOM
 
-// Re-instantiate monthpicker
-monthPicker.init();
+monthPicker.init(); // Re-instantiate monthpicker
 
 // Change rootContainer of monthpicker
 monthPicker.setRootContainer(document.querySelector('.new-container'));
 
-// Disable monthpicker
-monthPicker.disable();
-monthPicker.setTheme('light'); // ignored
+monthPicker.disable(); // Disable monthpicker
+monthPicker.setTheme('light'); // ignored as monthpicker is disabled
 
 // Enable monthpicker
 // Still will be dark theme as setTheme() above was ignored
 monthPicker.enable(); 
 
-// Force Open
-monthPicker.open();
-
-// Force Close
-monthPicker.close();
-
-// Toggle Open/Close
-monthPicker.toggle();
-
+monthPicker.open();// Force Open
+monthPicker.close();// Force Close
+monthPicker.toggle();// Toggle Open/Close
 monthPicker.init() // ignored as already instantiated
 ```
 

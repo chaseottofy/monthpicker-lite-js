@@ -1,3 +1,5 @@
+export type SingleCallback = ((selectedDate: Date) => any);
+
 export type DatepickerCallback = ((selectedDate: Date) => any)[] | [];
 
 export type ThrottledFunction<T extends (
@@ -118,6 +120,7 @@ export interface MonthPickerInterface {
   setCloseOnSelect(closeOnSelect: boolean): void;
   setOnlyShowCurrentMonth(onlyShowCurrentMonth: boolean): void;
   setAlignPickerMiddle(alignPickerMiddle: boolean): void;
+  addCallback(callback: SingleCallback): void;
 
   getRootContainer(): HTMLElement | null;
   getDate(): Date;
