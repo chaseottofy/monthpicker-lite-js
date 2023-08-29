@@ -2,7 +2,7 @@
 
 Zero-dependency, lightweight datepicker for Vanilla JS & Typescript.
 
-## <a href="https://stackblitz.com/edit/monthpicker-lite-js" target="_blank">Typescript Stackblitz Demo V. 1.0.9 ></a>
+## <a href="https://stackblitz.com/edit/monthpicker-lite-js" target="_blank">Typescript Stackblitz Demo V. 1.1.1 ></a>
 
 <img src="screenshots/aaaa.png">
 

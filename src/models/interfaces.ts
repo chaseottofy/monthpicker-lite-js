@@ -1,11 +1,36 @@
+// Ver: 1.1.1 (8-28-2023)
+
+/**
+ * A callback function that takes a single Date argument and can return any value.
+ * @callback
+ * @param {Date} selectedDate - The selected date.
+ * @returns {any} - Can return any value.
+ */
 export type SingleCallback = ((selectedDate: Date) => any);
 
+/**
+ * An array of callback functions where each function takes a single Date argument and can return any value.
+ * It can also be an empty array.
+ * @typedef {Array<function(Date): any>} DatepickerCallback
+ */
 export type DatepickerCallback = ((selectedDate: Date) => any)[] | [];
 
+/**
+ * Represents a function with throttling applied.
+ * It retains the same parameters and return type as the original function.
+ * @template T - A function type.
+ * @param {...Parameters<T>} args - The arguments the function accepts.
+ * @returns {ReturnType<T>} - The return type of the function.
+ */
 export type ThrottledFunction<T extends (
   ...args: any
 ) => any> = (...args: Parameters<T>) => ReturnType<T>;
 
+/**
+ * Interface for a valid HTML element with an added property to check if it's connected to the DOM.
+ * @extends HTMLElement
+ * @property {boolean} isConnected - Indicates if the element is connected to the DOM.
+ */
 export interface ValidHTMLElement extends HTMLElement {
   isConnected: boolean;
 }
