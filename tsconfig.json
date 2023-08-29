@@ -20,7 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "dist",
     "rootDir": "src",
     "esModuleInterop": true,
@@ -31,6 +31,5 @@
     "node_modules", 
     "dist",
     "tsup.config.ts",
-    "test"
   ]
 }

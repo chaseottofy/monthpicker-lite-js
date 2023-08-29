@@ -56,6 +56,11 @@ import { MonthPicker } from 'monthpicker-lite-js';
 import { MonthPicker, MonthPickerInterface } ... 
 ```
 
+#### Styles can also loaded via CDN
+```html
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/monthpicker-lite-js@1.1.3/dist/monthpicker-lite-js.css" />
+```
+
 ---
 
 ## Features

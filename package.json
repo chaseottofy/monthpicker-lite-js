@@ -1,6 +1,6 @@
 {
   "name": "monthpicker-lite-js",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Lightweight datepicker for vanilla js and typescript",
   "type": "module",
   "main": "dist/monthpicker-lite-js.js",
@@ -31,7 +31,6 @@
     "preset": "ts-jest"
   },
   "repository": {
-
     "type": "git",
     "url": "git+https://github.com/chaseottofy/monthpicker-lite-js.git"
   },

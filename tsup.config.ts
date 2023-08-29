@@ -6,10 +6,9 @@ export default defineConfig({
   },
   format: ['cjs', 'esm'],
   dts: true,
-  sourcemap: true,
+  sourcemap: false,
   clean: true,
   minify: true,
-  
   target: 'es2018',
   tsconfig: 'tsconfig.json',
   external: ['tslib'],

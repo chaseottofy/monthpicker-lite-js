@@ -16,12 +16,16 @@ import pickerConstants from '../src/constants/constants';
 
 import { PickerConstantsInterface } from '../src/models/interfaces';
 
+import {
+  testListOfDays,
+  testOrdinalArr,
+  testFormatArr
+} from './testConstants';
+
 const {
   INPUT_FORMATS,
   MONTHS
 } = pickerConstants as PickerConstantsInterface;
-
-const listOfDays: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 describe('isLeapYear', () => {
   test('returns true for leap year', () => {
@@ -35,13 +39,7 @@ describe('isLeapYear', () => {
 
 describe('getOrdinal', () => {
   test('returns number with correct ordinal as string', () => {
-    const ordinalTstArr: string[] = [
-      '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th',
-      '11th', '12th', '13th', '14th', '15th', '16th', '17th', '18th', '19th',
-      '20th', '21st', '22nd', '23rd', '24th', '25th', '26th', '27th', '28th',
-      '29th', '30th', '31st'
-    ];
-    ordinalTstArr.forEach((str, index) => {
+    testOrdinalArr.forEach((str, index) => {
       expect(getOrdinal(index + 1)).toBe(str);
     });
   });
@@ -57,20 +55,25 @@ describe('isDateValid', () => {
   });
 
   test('returns false for invalid date', () => {
+    // invalid date string
     expect(isDateValid(new Date('foo'))).toBe(false);
+    // out of range
     expect(isDateValid(new Date(1959, 1, 1))).toBe(false);
+    // invalid space in date string
     expect(isDateValid(new Date('1995-12-17 T03:24:00'))).toBe(false);
   });
 });
 
 describe('daysInMonth', () => {
   test('returns correct number of days in month on a normal year', () => {
-    listOfDays.forEach((day, index) => {
+    // Non-leap year
+    testListOfDays.forEach((day, index) => {
       expect(daysInMonth(2021, index + 1)).toBe(day);
     });
   });
 
   test('returns correct number of days in february on a leap year', () => {
+    // Leap year
     expect(daysInMonth(2020, 2)).toBe(29);
   });
 });
@@ -79,8 +82,8 @@ describe('getDateArray', () => {
   test('returns date object as [year, month, day]', () => {
     for (let i = 0; i < 12; i++) {
       expect(
-        getDateArray(new Date(2023, i, listOfDays[i]))
-      ).toEqual([2023, i + 1, listOfDays[i]]);
+        getDateArray(new Date(2023, i, testListOfDays[i]))
+      ).toEqual([2023, i + 1, testListOfDays[i]]);
     }
   });
 });
@@ -89,11 +92,15 @@ describe('parseDateString', () => {
   test('parses string and returns equivalent Date Object', () => {
     // Test first and last day of each month
     for (let i = 0; i < 9; i++) {
-      expect(parseDateString(`2023-0${i + 1}-${listOfDays[i]}`)).toEqual(new Date(2023, i, listOfDays[i]));
+      expect(parseDateString(`2023-0${i + 1}-${testListOfDays[i]}`)).toEqual(
+        new Date(2023, i, testListOfDays[i])
+      );
       expect(parseDateString(`2023-0${i + 1}-01`)).toEqual(new Date(2023, i, 1));
     }
     for (let i = 9; i < 12; i++) {
-      expect(parseDateString(`2023-${i + 1}-${listOfDays[i]}`)).toEqual(new Date(2023, i, listOfDays[i]));
+      expect(parseDateString(`2023-${i + 1}-${testListOfDays[i]}`)).toEqual(
+        new Date(2023, i, testListOfDays[i])
+      );
       expect(parseDateString(`2023-${i + 1}-01`)).toEqual(new Date(2023, i, 1));
     }
   });
@@ -102,19 +109,8 @@ describe('parseDateString', () => {
 describe('formatDateForInput', () => {
   test('returns correct formatted date from date object and format option', () => {
     const date: Date = new Date(2023, 0, 9);
-    const tstFormatArr: string[] = [
-      '09012023',
-      '09/01/2023',
-      '01/09/2023',
-      '09-01-2023',
-      '01-09-2023',
-      'January 9th, 2023',
-      'January 9th 2023',
-      'Jan 9th 2023',
-      'Jan 9th, 2023',
-    ];
     INPUT_FORMATS.forEach((format, index) => {
-      expect(formatDateForInput(date, format)).toEqual(tstFormatArr[index]);
+      expect(formatDateForInput(date, format)).toEqual(testFormatArr[index]);
     });
   });
 });
