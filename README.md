@@ -2,9 +2,7 @@
 
 Zero-dependency, lightweight datepicker for Vanilla JS & Typescript.
 
-## <a href="https://stackblitz.com/edit/monthpicker-lite-js" target="_blank">Stackblitz Demo ></a>
-<!-- ### [Stackblitz Demo >](https://stackblitz.com/edit/monthpicker-lite-js) -->
-
+## <a href="https://stackblitz.com/edit/monthpicker-lite-js" target="_blank">Typescript Stackblitz Demo V. 1.0.9 ></a>
 
 <img src="screenshots/aaaa.png">
 
@@ -29,6 +27,7 @@ npm i monthpicker-lite-js
 
 ## Clone/Build
 
+Very minimal build process that uses Typescript and tsup.
 ~ Generates a minified build in the dist folder.
 
 ```bash
@@ -330,7 +329,7 @@ setAlignPickerMiddle(alignPickerMiddle: boolean): void;
 getRootContainer(): HTMLElement | null;
 getDate(): Date;
 getDateArray(): number[];
-getDateFormatted(format: string): string;
+getDateFormatted(): string;
 getTheme(): string;
 getCallbacks(): DatepickerCallback;
 getFormat(): string;
@@ -434,7 +433,7 @@ getRootContainer(): HTMLElement;
  */
 getDate(): Date;
 getDateArray(): number[];
-getDateFormatted(format: string): string; 
+getDateFormatted(): string;
 
 // returns array of set callbacks
 getCallbacks(): DatepickerCallback; 

@@ -323,7 +323,6 @@ export default class MonthPicker implements MonthPickerInterface {
     }
 
     if (this.onlyShowCurrentMonth === onlyShowCurrentMonth) { return; }
-
     this.onlyShowCurrentMonth = onlyShowCurrentMonth;
     this.#updateMonthPicker(this.getDate() || new Date());
     this.#setInstance('monthPicker', `.${BASE_PICKER_CLASS}`);
@@ -383,16 +382,21 @@ export default class MonthPicker implements MonthPickerInterface {
     return getDateArray(new Date(input.dataset.dateValue as string));
   }
 
-  getDateFormatted(format: string = DEFAULT_FORMAT): string {
+  getDateFormatted(): string {
     if (this.isDestroyed) { return ''; }
 
     const { input }: InstancesInterface = this.instances;
-    if (!input) { return ''; }
+    if (!input) {
+      return formatDateForInput(
+        new Date(),
+        this.format,
+      );
+    }
+
     const { dateValue } = input.dataset;
-    const validFormat = validateInputFormat(format);
     return formatDateForInput(
       new Date(String(dateValue)),
-      validFormat ? format : DEFAULT_FORMAT,
+      this.format,
     );
   }
 

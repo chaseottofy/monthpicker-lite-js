@@ -122,7 +122,7 @@ export interface MonthPickerInterface {
   getRootContainer(): HTMLElement | null;
   getDate(): Date;
   getDateArray(): number[];
-  getDateFormatted(format: string): string;
+  getDateFormatted(): string;
   getTheme(): string;
   getCallbacks(): DatepickerCallback;
   getFormat(): string;
