@@ -634,6 +634,12 @@ All date handling is done with the native Date object and should be compatible f
 
 ---
 
+## Contact
+
+```bash
+ottofy@zohomail.com
+```
+
 ## License MIT
 
 Copyright (c) 2023 Chase Ottofy
