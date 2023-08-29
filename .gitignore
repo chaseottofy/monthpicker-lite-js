@@ -23,6 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-test
 example
 dev
+coverage

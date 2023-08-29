@@ -1,5 +1,7 @@
 # monthpicker-lite-js
 
+[![npm version](https://badge.fury.io/js/monthpicker-lite-js.svg)](https://badge.fury.io/js/monthpicker-lite-js)
+
 Zero-dependency, lightweight datepicker for Vanilla JS & Typescript.
 
 ## <a href="https://stackblitz.com/edit/monthpicker-lite-js" target="_blank">Typescript Stackblitz Demo V. 1.1.1 ></a>

@@ -29,7 +29,7 @@ import createMonthPicker from '../components/picker';
 import createInputInstance from '../components/input';
 
 const {
-  DEFAULT_ROOT_ELEMENT,
+  // DEFAULT_ROOT_ELEMENT,
   DEFAULT_THEME,
   DEFAULT_FORMAT,
   INPUT_FORMATS,
@@ -103,7 +103,7 @@ export default class MonthPicker implements MonthPickerInterface {
   private isDisabled = false;
 
   constructor(
-    rootContainer: HTMLElement = DEFAULT_ROOT_ELEMENT,
+    rootContainer: HTMLElement,
     startDate: Date = new Date(),
     pickerCallbacks: DatepickerCallback = [],
     theme: string = DEFAULT_THEME,

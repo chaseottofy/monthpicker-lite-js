@@ -63,7 +63,7 @@ const pickerConstants: PickerConstantsInterface = {
   THEMES: ['dark', 'light'],
   /*******************************************/
 
-  DEFAULT_ROOT_ELEMENT: document.body,
+  // DEFAULT_ROOT_ELEMENT: document.body,
 };
 
 export default pickerConstants;

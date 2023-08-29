@@ -3,7 +3,9 @@ tsup.config.ts
 LICENSE
 README.md
 src/
+coverage/
 tests/
+test/
 node_modules/
 example/
 .eslintignore
