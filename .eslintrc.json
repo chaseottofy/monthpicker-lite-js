@@ -1,9 +1,15 @@
 {
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:unicorn/all",
+    "airbnb",
+    "airbnb-typescript/base"
   ],
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./tsconfig.json"]
+  },
   "plugins": [
     "@typescript-eslint"
   ],
@@ -13,6 +19,14 @@
   ],
   "root": true,
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off"
+    "class-methods-use-this": "off",              // allow private methods as helpers
+    "@typescript-eslint/no-explicit-any": "off",  // allow any
+    "no-restricted-syntax": "off",                // allow for...of
+    "unicorn/no-array-for-each": "off",           // allow forEach
+    "unicorn/no-null": "off",                     // prefer null > undefined
+    "unicorn/prevent-abbreviations": "off",
+    "linebreak-style": "off",
+    "import/extensions": "off",
+    "@typescript-eslint/lines-between-class-members": "off"
   }
 }

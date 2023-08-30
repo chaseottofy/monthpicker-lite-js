@@ -1,11 +1,11 @@
 {
   "name": "monthpicker-lite-js",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Lightweight datepicker for vanilla js and typescript",
   "type": "module",
   "main": "dist/monthpicker-lite-js.js",
   "module": "dist/monthpicker-lite-js.cjs.",
-  "types": "./dist/monthpicker-lite-js.d.ts",
+  "types": "dist/monthpicker-lite-js.d.ts",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -77,6 +77,9 @@
     "@typescript-eslint/parser": "^6.5.0",
     "babel-jest": "^29.6.4",
     "eslint": "^8.48.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-plugin-unicorn": "^48.0.1",
     "jest": "^29.6.4",
     "jest-environment-jsdom": "^29.6.4",
     "ts-jest": "^29.1.1",

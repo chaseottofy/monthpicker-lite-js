@@ -4,7 +4,7 @@ import {
   InstancesInterface,
   PickerParamsInterface,
   PickerConstantsInterface,
-  SingleCallback
+  SingleCallback,
 } from '../models/interfaces';
 
 import pickerConstants from '../constants/constants';
@@ -15,14 +15,14 @@ import {
   calcInline,
   initStyles,
   isValidAndInDom,
-} from '../helpers/domHelpers';
+} from '../helpers/dom-helpers';
 
 import {
   isDateValid,
   validateInputFormat,
   formatDateForInput,
   getDateArray,
-} from '../helpers/dateHelpers';
+} from '../helpers/date-helpers';
 
 import createMonthPicker from '../components/picker';
 
@@ -74,7 +74,7 @@ export default class MonthPicker implements MonthPickerInterface {
 
   /**
    * @property @private instances
-   * 
+   *
    * - All DOM elements that are created upon init() will be stored and referenced here.
    * - Upon destroy(), and up until init(), all instances are set to null by default.
    */
@@ -87,17 +87,17 @@ export default class MonthPicker implements MonthPickerInterface {
    * - if true: all event listeners will be removed from window
    * - if true: all instances will be set to null
    * - if true: all DOM elements will be removed
-   * 
+   *
    * All of the above can be reset by calling @method init();
    */
   private isDestroyed = false;
 
   /**
    * @property @private isDisabled
-   * 
+   *
    * - if true: disabled() has been called
    * - if true: all public methods will be ignored
-   * 
+   *
    * All of the above can be reset by calling @method enable();
    */
   private isDisabled = false;
@@ -112,11 +112,10 @@ export default class MonthPicker implements MonthPickerInterface {
     onlyShowCurrentMonth: boolean = false,
     alignPickerMiddle: boolean = false,
   ) {
-
     /**
      * @param pickerParams
      * @private
-     * @description - 
+     * @description -
      * Used to validate constructor params on init()
      * Helps provide compatibility with vanilla JS
      */
@@ -130,18 +129,17 @@ export default class MonthPicker implements MonthPickerInterface {
       { name: 'onlyShowCurrentMonth', value: onlyShowCurrentMonth, type: 'boolean' },
       { name: 'alignPickerMiddle', value: alignPickerMiddle, type: 'boolean' },
     ];
-    for (const { name, value, type } of pickerParams) {
+
+    pickerParams.forEach(({ name, value, type }) => {
       const invStr = `Invalid type for parameter ${name}`;
       if (typeof type === 'function') {
         if (!(value instanceof type)) {
-          throw new Error(invStr);
+          throw new TypeError(invStr);
         }
-      } else {
-        if (typeof value !== type) {
-          throw new Error(invStr);
-        }
+      } else if (typeof value !== type) {
+        throw new TypeError(invStr);
       }
-    }
+    });
 
     this.instances = this.#setBaseInstances();
     this.rootContainer = rootContainer;
@@ -158,9 +156,9 @@ export default class MonthPicker implements MonthPickerInterface {
     this.handleKeyDownToggle = this.handleKeyDownToggle.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
 
-    this.throttleHandleToggle = throttle(
-      this.handleToggle as (event: Event) => void, BASE_THROTTLE,
-    );
+    this.throttleHandleToggle = throttle(this.handleToggle as (
+      event: Event
+    ) => void, BASE_THROTTLE);
     this.throttleHandleScroll = throttle(this.handleScroll, BASE_THROTTLE);
     this.throttledSetPosition = debounce(this.handleSetPosition, BASE_DEBOUNCE);
 
@@ -187,7 +185,7 @@ export default class MonthPicker implements MonthPickerInterface {
    * - Update input placeholder
    * - Update input dataset.dateValue
    * - Update input dataset.format
-   * 
+   *
    * @param date Date Object
    * @returns void
    */
@@ -196,8 +194,8 @@ export default class MonthPicker implements MonthPickerInterface {
     if (!input || !inputWrapper) {
       return;
     }
-    const [DARK_THEME, LIGHT_THEME] = THEMES;
 
+    const [DARK_THEME, LIGHT_THEME] = THEMES;
     inputWrapper.classList.remove(DARK_THEME);
     inputWrapper.classList.remove(LIGHT_THEME);
     inputWrapper.classList.add(this.theme);
@@ -210,7 +208,7 @@ export default class MonthPicker implements MonthPickerInterface {
    * @private updateMonthPicker
    * - Re-renders month picker
    * @param date Date Object
-   * 
+   *
    * @returns void
    */
   #updateMonthPicker(date: Date) {
@@ -231,7 +229,7 @@ export default class MonthPicker implements MonthPickerInterface {
   /**
    * @private isInputDisabled
    * - Check if input is disabled
-   * 
+   *
    * @returns boolean
    */
   #isMonthPickerOpen() {
@@ -242,7 +240,7 @@ export default class MonthPicker implements MonthPickerInterface {
   /**
    * @private isInputDisabled
    * - Check if input is disabled
-   * 
+   *
    * @returns boolean
    */
   #isInputDisabled() {
@@ -252,13 +250,13 @@ export default class MonthPicker implements MonthPickerInterface {
 
   /**
    * @private setInstance
-   * 
-   * @param instance {string} 
+   *
+   * @param instance {string}
    * - input | styles | monthPicker | inputWrapper
-   * 
+   *
    * @param selector {string}
    * - pass the associated class name from constants/constants.ts
-   * 
+   *
    * @returns void
    */
   #setInstance(instance: string, selector: string) {
@@ -288,7 +286,7 @@ export default class MonthPicker implements MonthPickerInterface {
    * - Force close picker in case it's open
    * - Update input value then re-set it's instance reference
    * - Re-render month picker then re-set it's instance reference
-   * 
+   *
    * @param date Date Object
    * @returns void
    */
@@ -302,16 +300,14 @@ export default class MonthPicker implements MonthPickerInterface {
   }
 
   #handleWarn(funcName: string, input: string, message: string) {
-    console.warn(`@MonthPicker: @${funcName}
-    \nInput: ${input}
-    \n${message}`);
+    throw new TypeError(`@MonthPicker: @${funcName} \nInput: ${input} \n${message}`);
   }
 
   /**
-   * setRootContainer(HTMLElement) 
+   * setRootContainer(HTMLElement)
    * - set root container
-   * 
-   * @param HTMLElement 
+   *
+   * @param HTMLElement
    * - Must a valid HTMLElement in the DOM
    */
   setRootContainer(rootContainer: HTMLElement) {
@@ -330,7 +326,7 @@ export default class MonthPicker implements MonthPickerInterface {
       this.#handleWarn(
         'getRootContainer',
         String(rootContainer),
-        'Passed element is either not in the DOM or is not a valid HTMLElement.'
+        'Passed element is either not in the DOM or is not a valid HTMLElement.',
       );
       return;
     }
@@ -341,9 +337,9 @@ export default class MonthPicker implements MonthPickerInterface {
 
   /**
    * setDate(Date) - Sets date of monthpicker
-   * 
+   *
    * @param date - Date Object (new Date())
-   * Invalid dates will be ignored 
+   * Invalid dates will be ignored
    * and will not update the monthpicker
    * @returns void
    */
@@ -371,7 +367,7 @@ export default class MonthPicker implements MonthPickerInterface {
 
   /**
    * setFormat(string) - Schema for input display
-   * 
+   *
    * @param string - Must be one of the following formats:
    * Long (January) : 'month dd, yyyy', 'month dd yyyy',
    * Abbr (Jan)     : 'mth dd yyyy', 'mth dd, yyyy'
@@ -397,33 +393,35 @@ export default class MonthPicker implements MonthPickerInterface {
 
   /**
    * setCallbacks(Function[]) - <Array>[callbacks]
-   * 
+   *
    * @type DatepickerCallbacks
    * import { DatepickerCallbacks } from 'monthpicker-lite-js'
    * DatepickerCallbacks = ((selectedDate: Date) => any)[] | []
-   * 
+   *
    * @param callbacks: DatepickerCallbacks
    * Array of functions: Each callback will have access to the param (date:Date) which
    * will be passed as the first and only argument upon date selection.
-   * 
+   *
    * Callbacks will be instantiated in their respective array order.
-   * 
+   *
    * Not required, only if you want easy access to the selected date.
    * To clear all callbacks, pass an empty array.
-   * 
+   *
    * @example get date object and date array after selection
       const getSelectedDate = (date: Date) => date;
       const getDateArray = () => {
         return monthPicker.getDateArray();
       }
       monthpicker.setCallbacks([
-        getSelectedDate, 
+        getSelectedDate,
         getDateArray
       ]);
       returns: [Date, [number:year, number:month: number:day]]
    *
+   *
    * @example remove all callbacks
-      monthpicker.setCallbacks([]);
+   * - monthpicker.setCallbacks([]);
+   *
    *
    * @returns void
   */
@@ -454,7 +452,7 @@ export default class MonthPicker implements MonthPickerInterface {
     }
 
     this.setCallbacks(
-      [...this.pickerCallbacks, callback as SingleCallback]
+      [...this.pickerCallbacks, callback as SingleCallback],
     );
   }
 
@@ -488,7 +486,7 @@ export default class MonthPicker implements MonthPickerInterface {
    * The monthpicker retains a fixed layout of 6 rows of 7 days.
    * By default, the monthpicker will show days from the previous and next months
    * To leave previous and next days blank, setOnlyShowCurrentMonth(true)
-   * 
+   *
    * @param onlyShowCurrentMonth - boolean (default false)
    * @returns void
    */
@@ -499,7 +497,6 @@ export default class MonthPicker implements MonthPickerInterface {
       this.#handleWarn('setOnlyShowCurrentMonth', String(onlyShowCurrentMonth), 'OnlyShowCurrentMonth must be passed as a boolean.');
       return;
     }
-
     if (this.onlyShowCurrentMonth === onlyShowCurrentMonth) { return; }
     this.onlyShowCurrentMonth = onlyShowCurrentMonth;
     this.#updateMonthPicker(this.getDate() || new Date());
@@ -703,7 +700,7 @@ export default class MonthPicker implements MonthPickerInterface {
 
   /**
    * destroy
-   * 
+   *
    * - Removes all monthpicker/input event listeners and clears DOM.
    * - Resets all instances (DOM element references) to null.
    * - Any method called after destroy() other than init() will be ignored.
@@ -719,7 +716,7 @@ export default class MonthPicker implements MonthPickerInterface {
       throttleHandleScroll,
     } = this as unknown as MonthPickerInterface;
 
-    const instances: InstancesInterface = this.instances;
+    const { instances } = this;
     if (Object.values(instances).filter(Boolean).length === 0) { return; }
 
     for (const instance in instances) {
@@ -748,7 +745,10 @@ export default class MonthPicker implements MonthPickerInterface {
     if (this.isDestroyed) { return; }
     this.isDisabled = true;
     const { inputWrapper }: InstancesInterface = this.instances;
-    return inputWrapper && inputWrapper.classList.add(INPUT_DISABLED_CLASS);
+    if (inputWrapper) {
+      inputWrapper.classList.add(INPUT_DISABLED_CLASS);
+    }
+    // return inputWrapper && inputWrapper.classList.add(INPUT_DISABLED_CLASS);
   }
 
   /**
@@ -759,7 +759,10 @@ export default class MonthPicker implements MonthPickerInterface {
     if (this.isDestroyed) { return; }
     this.isDisabled = false;
     const { inputWrapper }: InstancesInterface = this.instances;
-    return inputWrapper && inputWrapper.classList.remove(INPUT_DISABLED_CLASS);
+    if (inputWrapper) {
+      inputWrapper.classList.remove(INPUT_DISABLED_CLASS);
+    }
+    // return inputWrapper && inputWrapper.classList.remove(INPUT_DISABLED_CLASS);
   }
 
   /**
@@ -769,11 +772,23 @@ export default class MonthPicker implements MonthPickerInterface {
   toggle() {
     if (this.isDestroyed || this.isDisabled) { return; }
     const { monthPicker }: InstancesInterface = this.instances;
-    return monthPicker && (
-      monthPicker.classList.contains(PICKER_DISABLED_CLASS)
-        ? this.open()
-        : this.close()
-    );
+    if (monthPicker && monthPicker.dataset.pickerOpen === 'true') {
+      this.open();
+    } else {
+      this.close();
+    }
+    // if (monthPicker) {
+    //   if (monthPicker.dataset.pickerOpen === 'true') {
+    //     this.open();
+    //   } else {
+    //     this.close();
+    //   }
+    // }
+    // return monthPicker && (
+    //   monthPicker.classList.contains(PICKER_DISABLED_CLASS)
+    //     ? this.open()
+    //     : this.close()
+    // );
   }
 
   /**
@@ -809,7 +824,10 @@ export default class MonthPicker implements MonthPickerInterface {
     inputWrapper.dataset.pickerOpen = 'true';
     monthPicker.dataset.pickerOpen = 'true';
 
-    calcInline(inputWrapper, monthPicker, this.alignPickerMiddle || false);
+    const { top, left } = calcInline(inputWrapper, this.alignPickerMiddle);
+    monthPicker.style.top = top;
+    monthPicker.style.left = left;
+
     inputWrapper.classList.add(INPUT_WRAPPER_ACTIVE);
     monthPicker.classList.remove(PICKER_DISABLED_CLASS);
     monthPicker.classList.add(PICKER_TRANSITION_CLASS);
@@ -862,7 +880,9 @@ export default class MonthPicker implements MonthPickerInterface {
     const { inputWrapper, monthPicker } = this.instances as InstancesInterface;
     const isPickerOpen = inputWrapper?.classList.contains(INPUT_WRAPPER_ACTIVE);
     if (inputWrapper && monthPicker && isPickerOpen) {
-      calcInline(inputWrapper, monthPicker, this.alignPickerMiddle || false);
+      const { top, left } = calcInline(inputWrapper, this.alignPickerMiddle);
+      monthPicker.style.top = top;
+      monthPicker.style.left = left;
     }
   }
 
@@ -882,22 +902,22 @@ export default class MonthPicker implements MonthPickerInterface {
 
   /**
    * init
-   * 
+   *
    * - Re-instantiates monthpicker and appends to DOM.
    * - Called automatically after declaration of monthpicker instance.
    * - Only method that can be called after @method destroy()
-   * 
+   *
    * - Will ignore subsequent calls if already instantiated.
-   * 
+   *
    * - init() & destroy() can work in tandem to keep the DOM clean if needed.
    * - This is useful if your app is heavy with DOM content, however,
    * it is not recommended to destroy and re-instantiate since the logic
    * is configured to update rather than destruct and re-create.
-   * 
+   *
    * - Elements are only ever appended to the DOM once, if performance is a
    * concern, but you still want to have the ability to disable/enable, use
    * the disable() and enable() methods.
-   * 
+   *
    * @returns void
    */
   init() {
@@ -953,14 +973,16 @@ export default class MonthPicker implements MonthPickerInterface {
 
     // Set Initial Positioning of date picker
     if (inputWrapper && monthPicker) {
-      calcInline(inputWrapper, monthPicker, this.alignPickerMiddle || false);
+      const { top, left } = calcInline(inputWrapper, this.alignPickerMiddle);
+      monthPicker.style.top = top;
+      monthPicker.style.left = left;
     }
 
     // ALL EVENT LISTENERS ARE SET HERE
     // They are removed on destroy which is called on init and can be called declaratively
-    // All event listeners aside from purely destructive actions (keydown: escape) 
+    // All event listeners aside from purely destructive actions (keydown: escape)
 
-    // Events are not attached to the Root Container specified by user 
+    // Events are not attached to the Root Container specified by user
     // since the datepicker will act as a fixed position element and needs
     // calculations based on the viewport when it is open
     window.addEventListener('click', throttleHandleToggle);

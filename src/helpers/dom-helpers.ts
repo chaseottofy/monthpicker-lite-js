@@ -1,9 +1,10 @@
 import pickerConstants from '../constants/constants';
 
 import {
-  ThrottledFunction,
+  ThrottledFn,
   PickerConstantsInterface,
-  ValidHTMLElement
+  ValidHTMLElement,
+  CalcInlineReturnInterface,
 } from '../models/interfaces';
 
 const {
@@ -12,7 +13,7 @@ const {
   BASE_PICKER_CLASS,
   PICKER_HEIGHT,
   PICKER_WIDTH,
-  POSITION_PADDING
+  POSITION_PADDING,
 } = pickerConstants as PickerConstantsInterface;
 
 const W3NSURL = 'http://www.w3.org/2000/svg';
@@ -22,7 +23,8 @@ export function isValidAndInDom(element: any): element is ValidHTMLElement {
   return element instanceof HTMLElement && element.isConnected;
 }
 
-export function throttle<T extends (...args: any) => any>(func: T, limit: number): ThrottledFunction<T> {
+// estlint-disable-next-line max-len
+export function throttle<T extends (...args: any) => any>(func: T, limit: number): ThrottledFn<T> {
   let inThrottle: boolean;
   let lastResult: ReturnType<T>;
 
@@ -30,19 +32,20 @@ export function throttle<T extends (...args: any) => any>(func: T, limit: number
   return function Throttled(this: any): ReturnType<T> {
     // eslint-disable-next-line prefer-rest-params
     const args = arguments;
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const context = this;
 
     if (!inThrottle) {
       inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
-      lastResult = func.apply(context, args);
+      setTimeout(() => {
+        inThrottle = false;
+      }, limit);
+      lastResult = func.apply(this, args);
     }
     return lastResult;
   };
 }
 
-export function debounce<T extends (...args: any[]) => any>(fn: T, ms: number): (...args: any[]) => any {
+export function debounce<T extends (...args: any[]) => any>(
+  fn: T, ms: number): (...args: any[]) => any {
   let timeoutId: number | undefined;
   return (...args: any[]) => {
     clearTimeout(timeoutId);
@@ -127,7 +130,7 @@ export function initStyles(fontFamily: string): void {
  * Calculate the optimal datepicker position relative to input element.
  * This function ensures that the picker does not overflow the window, and
  * optionally centers it relative to the input.
- * 
+ *
  * @scopes
  * MonthPicker.open()              - call on open
  * MonthPicker.init()              - call on init
@@ -139,30 +142,33 @@ export function initStyles(fontFamily: string): void {
  * @returns {void}
  * @description
  * - Calculate space above and below input element
- * 
+ *
  * - Set initial top/left position to reflect below Y position
  *   and left X position relative to input element
- * 
- * - Check for overflow on bottom, if true, repeat above steps 
+ *
+ * - Check for overflow on bottom, if true, repeat above steps
  *   in reverse (set picker above input)
- * 
+ *
  * - Check for overflow on left, if true, get difference and subtract
  *   from left position
- * 
+ *
  * - If user has set alignMiddle to true, calculate X position necessary
  *   to center picker relative to input element
- * 
+ *
  * - Check once more for any X or Y overflow, if true, set picker to corner
  *   of closest edge
- * 
+ *
  * - Check if screen width is nearly similar or smaller than picker, if true
  *   set picker x:MIDDLE, y:MIDDLE
  */
-export function calcInline(input: HTMLElement, picker: HTMLElement, alignMiddle: boolean): void {
+export function calcInline(
+  input: HTMLElement,
+  alignMiddle: boolean,
+): CalcInlineReturnInterface {
   const {
     bottom: inputBottom,
     left: inputLeft,
-    top: boundsTop
+    top: boundsTop,
   } = input.getBoundingClientRect();
 
   const {
@@ -172,15 +178,19 @@ export function calcInline(input: HTMLElement, picker: HTMLElement, alignMiddle:
   } = input;
 
   const {
-    innerHeight, innerWidth, scrollX, scrollY,
+    innerHeight,
+    innerWidth,
+    scrollX,
+    scrollY,
   } = window;
 
   // space below & above input element
   const [spaceBelow, spaceAbove] = [innerHeight - inputBottom, boundsTop];
 
-  /***************************************/
-  /** TOP                    *************/
-  // set initial to either top of input or bottom of input depending on space
+  /**
+   * TOP
+   * - set initial to either top of input or bottom of input depending on space
+   */
   let settop = spaceBelow > spaceAbove
     ? inputTop + inputHeight + POSITION_PADDING
     : inputTop - PICKER_HEIGHT - POSITION_PADDING;
@@ -201,10 +211,10 @@ export function calcInline(input: HTMLElement, picker: HTMLElement, alignMiddle:
     settop = scrollY + POSITION_PADDING;
   }
 
-  /***************************************/
-  /** LEFT                    ************/
-  // set initial to left of input
-
+  /**
+   * LEFT
+   * - set initial to left of input
+   */
   let setleft = inputLeft + scrollX - POSITION_PADDING;
 
   // if datepicker is overflowing left of window
@@ -216,7 +226,9 @@ export function calcInline(input: HTMLElement, picker: HTMLElement, alignMiddle:
   if (alignMiddle && PICKER_WIDTH !== inputWidth) {
     const pickerHalf = Number((PICKER_WIDTH / 2).toFixed(2));
     const inputHalf = Number((inputWidth / 2).toFixed(2));
-    const halfDiff = pickerHalf > inputHalf ? pickerHalf - inputHalf : inputHalf - pickerHalf;
+    const halfDiff = pickerHalf > inputHalf
+      ? pickerHalf - inputHalf
+      : inputHalf - pickerHalf;
     setleft = inputLeft - halfDiff + scrollX;
   }
 
@@ -230,6 +242,8 @@ export function calcInline(input: HTMLElement, picker: HTMLElement, alignMiddle:
     setleft -= Number(((PICKER_WIDTH - inputWidth) / 2).toFixed(2));
   }
 
-  picker.style.top = `${Number(settop.toFixed(2))}px`;
-  picker.style.left = `${Number(setleft.toFixed(2))}px`;
+  return {
+    top: `${Number(settop.toFixed(2))}px`,
+    left: `${Number(setleft.toFixed(2))}px`,
+  };
 }

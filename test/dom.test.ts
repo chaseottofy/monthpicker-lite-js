@@ -21,7 +21,7 @@ import {
 import { getMonthDiff } from "./test.utilities";
 
 import { MonthPickerInterface } from '../src/models/interfaces';
-import MonthPicker from '../src/monthpicker/monthpickerClass';
+import MonthPicker from '../src/monthpicker/monthpicker-class';
 
 // Global constants from '/src/' - namely Classes and Throttle Time
 import pickerConstants from '../src/constants/constants';

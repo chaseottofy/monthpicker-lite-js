@@ -6,14 +6,14 @@ import {
   formatDateForInput,
   getDateArray,
   parseDateString,
-  daysInMonth
-} from '../helpers/dateHelpers';
+  daysInMonth,
+} from '../helpers/date-helpers';
 
-import { createNavButton, throttle } from '../helpers/domHelpers';
+import { createNavButton, throttle } from '../helpers/dom-helpers';
 
 import {
   PickerConstantsInterface,
-  DatepickerCallback
+  DatepickerCallback,
 } from '../models/interfaces';
 
 const {
@@ -170,12 +170,12 @@ const createMonthPicker = (
         }
         if (month - 1 < currMonth || year < currYear) {
           dayElement.classList.add(
-            onlyShowCurrentMonth ? DISABLED_DAY_CLASS : PREV_MONTH_CLASS
+            onlyShowCurrentMonth ? DISABLED_DAY_CLASS : PREV_MONTH_CLASS,
           );
         }
         if (month - 1 > currMonth || year > currYear) {
           dayElement.classList.add(
-            onlyShowCurrentMonth ? DISABLED_DAY_CLASS : NEXT_MONTH_CLASS
+            onlyShowCurrentMonth ? DISABLED_DAY_CLASS : NEXT_MONTH_CLASS,
           );
         }
       }
@@ -288,7 +288,7 @@ const createMonthPicker = (
     monthPicker.classList.add(`${PICKER_DISABLED_CLASS}`);
     const throttleMonthDivClick = throttle(
       handleMonthDivClick,
-      BASE_THROTTLE
+      BASE_THROTTLE,
     );
     monthPicker.addEventListener('click', throttleMonthDivClick);
   };

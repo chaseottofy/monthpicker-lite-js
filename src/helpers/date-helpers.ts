@@ -5,7 +5,7 @@ import { PickerConstantsInterface } from '../models/interfaces';
 const {
   INPUT_FORMATS,
   MONTHS,
-  DEFAULT_FORMAT
+  DEFAULT_FORMAT,
 } = pickerConstants as PickerConstantsInterface;
 
 /**
@@ -15,6 +15,18 @@ const {
  */
 export function isLeapYear(year: number): boolean {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+}
+
+/**
+ * getDaysInMonth
+ * @param month number - Month to test (1-12)
+ * @param year number  - Year to test
+ * @returns number     - Number of days in month
+ */
+export function getDaysInMonth(month: number, year: number): number {
+  if (month === 2) return isLeapYear(year) ? 29 : 28;
+  if (month === 4 || month === 6 || month === 9 || month === 11) return 30;
+  return 31;
 }
 
 /**
@@ -37,7 +49,7 @@ export function getOrdinal(num: number) {
 /**
  * isDateValid - Must be valid date object with a
  * positive valueOf (within 60 or so years)
- * 
+ *
  * @param val Date to validate
  * @returns boolean
  */
@@ -126,31 +138,20 @@ export function formatDateForInput(date: Date, inputFormat: string) {
 
 /**
  * validateSelectedDay - Ensures selected day is not greater than the number of days in the month
- * 
+ *
  * Set the selected day to the maximum number of days in the new month only
  * if that new month has fewer days than the selected day
- * 
+ *
  * @param selectedDay number - selected day
  * @param currentMonth number - current month
  * @param currentYear number - current year
  * @returns number - largest of selected day or number of days in current month
  */
-export function validateSelectedDay(selectedDay: number, currentMonth: number, currentYear: number): number {
-  const daysInMonth = (month: number, year: number): number => {
-    switch (month) {
-      case 2: // February
-        return isLeapYear(year) ? 29 : 28;
-      case 4: case 6: case 9: case 11: // April, June, September, November
-        return 30;
-      default:
-        return 31;
-    }
-  };
-
-  const totalDays = daysInMonth(currentMonth, currentYear);
-  if (selectedDay > totalDays) {
-    return totalDays;
-  }
-
-  return selectedDay;
+export function validateSelectedDay(
+  selectedDay: number,
+  currentMonth: number,
+  currentYear: number,
+): number {
+  const totalDays = getDaysInMonth(currentMonth, currentYear);
+  return selectedDay > totalDays ? totalDays : selectedDay;
 }

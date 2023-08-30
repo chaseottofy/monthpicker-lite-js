@@ -1,8 +1,8 @@
 import pickerConstants from '../constants/constants';
 
-import { formatDateForInput } from '../helpers/dateHelpers';
+import { formatDateForInput } from '../helpers/date-helpers';
 
-import { createCalendarSVG } from '../helpers/domHelpers';
+import { createCalendarSVG } from '../helpers/dom-helpers';
 
 import { PickerConstantsInterface } from '../models/interfaces';
 

@@ -10,7 +10,7 @@ import {
   formatDateForInput,
   formatMonthYear,
   validateSelectedDay,
-} from '../src/helpers/dateHelpers';
+} from '../src/helpers/date-helpers';
 
 import pickerConstants from '../src/constants/constants';
 
@@ -39,9 +39,12 @@ describe('isLeapYear', () => {
 
 describe('getOrdinal', () => {
   test('returns number with correct ordinal as string', () => {
-    testOrdinalArr.forEach((str, index) => {
+    for (const [index, str] of testOrdinalArr.entries()) {
       expect(getOrdinal(index + 1)).toBe(str);
-    });
+    }
+    // testOrdinalArr.forEach((str, index) => {
+    //   expect(getOrdinal(index + 1)).toBe(str);
+    // });
   });
 });
 
@@ -67,9 +70,9 @@ describe('isDateValid', () => {
 describe('daysInMonth', () => {
   test('returns correct number of days in month on a normal year', () => {
     // Non-leap year
-    testListOfDays.forEach((day, index) => {
+    for (const [index, day] of testListOfDays.entries()) {
       expect(daysInMonth(2021, index + 1)).toBe(day);
-    });
+    }
   });
 
   test('returns correct number of days in february on a leap year', () => {
@@ -109,9 +112,9 @@ describe('parseDateString', () => {
 describe('formatDateForInput', () => {
   test('returns correct formatted date from date object and format option', () => {
     const date: Date = new Date(2023, 0, 9);
-    INPUT_FORMATS.forEach((format, index) => {
+    for (const [index, format] of INPUT_FORMATS.entries()) {
       expect(formatDateForInput(date, format)).toEqual(testFormatArr[index]);
-    });
+    }
   });
 });
 
