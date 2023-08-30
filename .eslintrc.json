@@ -11,11 +11,13 @@
     "project": ["./tsconfig.json"]
   },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "eslint-plugin-tsdoc"
   ],
   "ignorePatterns": [
     "node_modules/**",
-    "dist/**"
+    "dist/**",
+    "docs/**"
   ],
   "root": true,
   "rules": {
@@ -27,6 +29,7 @@
     "unicorn/prevent-abbreviations": "off",
     "linebreak-style": "off",
     "import/extensions": "off",
-    "@typescript-eslint/lines-between-class-members": "off"
+    "@typescript-eslint/lines-between-class-members": "off",
+    "tsdoc/syntax": "warn"
   }
 }

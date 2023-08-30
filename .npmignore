@@ -14,3 +14,5 @@ example/
 screenshots/
 test/
 dev/
+jsdoc.conf.json
+docs/

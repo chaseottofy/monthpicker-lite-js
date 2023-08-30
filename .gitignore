@@ -28,3 +28,5 @@ dev
 coverage
 
 __snapshots__
+jsdoc.conf.json
+docs
