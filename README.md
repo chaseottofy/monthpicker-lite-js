@@ -37,6 +37,9 @@ git clone https://github.com/chaseottofy/monthpicker-lite-js.git
 npm install
 cd monthpicker-lite-js-main
 npm run build
+
+# test
+npm run test
 ```
 
 ## Import
@@ -98,6 +101,11 @@ import { MonthPicker, MonthPickerInterface } ...
 - Compatible with all modern browsers and IE11.
 - Avoids date parsing that breaks on some mobile browsers.
 - Extends HTML5 input type=text rather than input type=date to avoid browser inconsistencies - notably CSS styling and mobile date parsing.
+
+#### Test Coverage
+- Date Helpers: 100% coverage
+- MonthPicker Class Public Methods: 100% coverage
+- Uses Jest/@testing-library
 
 ---
 
