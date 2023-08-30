@@ -1,17 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-
-// import pickerConstants from '../src/constants/constants';
-// const {
-//   BASE_PICKER_CLASS,
-//   BASE_INPUT_WRAPPER_CLASS,
-//   // PICKER_DISABLED_CLASS,
-//   // INPUT_WRAPPER_ACTIVE,
-// } = pickerConstants as PickerConstantsInterface;
 // import userEvent from '@testing-library/user-event';
 // import { waitFor } from '@testing-library/dom';
-
 import {
   describe,
   expect,
@@ -25,22 +16,17 @@ import {
   testDomDate,
   testDomDate2,
   testDomCallback,
-} from './testConstants';
+} from './test.constants';
 
-import {
-  getMonthDiff,
-} from "./testUtils";
+import { getMonthDiff } from "./test.utilities";
 
-import {
-  MonthPickerInterface,
-} from '../src/models/interfaces';
+import { MonthPickerInterface } from '../src/models/interfaces';
 import MonthPicker from '../src/monthpicker/monthpickerClass';
 
 // Global constants from '/src/' - namely Classes and Throttle Time
 import pickerConstants from '../src/constants/constants';
-import {
-  PickerConstantsInterface
-} from '../src/models/interfaces';
+import { PickerConstantsInterface } from '../src/models/interfaces';
+
 const {
   BASE_THROTTLE,
   BASE_DAY_CLASS,

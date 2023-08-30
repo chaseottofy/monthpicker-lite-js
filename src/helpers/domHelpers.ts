@@ -1,7 +1,7 @@
 import pickerConstants from '../constants/constants';
 
-import { 
-  ThrottledFunction, 
+import {
+  ThrottledFunction,
   PickerConstantsInterface,
   ValidHTMLElement
 } from '../models/interfaces';
@@ -26,8 +26,11 @@ export function throttle<T extends (...args: any) => any>(func: T, limit: number
   let inThrottle: boolean;
   let lastResult: ReturnType<T>;
 
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
   return function Throttled(this: any): ReturnType<T> {
+    // eslint-disable-next-line prefer-rest-params
     const args = arguments;
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this;
 
     if (!inThrottle) {
@@ -93,7 +96,7 @@ export function createCalendarSVG(): SVGElement {
   svg1.setAttribute('viewBox', '0 0 24 24');
   svg1.append(rect1, path1, path2, path3);
   return svg1 as SVGElement;
-};
+}
 
 export function createNavButton(title: string): HTMLButtonElement {
   const navButton = document.createElement('button');
@@ -224,8 +227,7 @@ export function calcInline(input: HTMLElement, picker: HTMLElement, alignMiddle:
 
   // datepicker overflowing right
   if (setleft + PICKER_WIDTH >= innerWidth) {
-    let diffPickerInput = Number(((PICKER_WIDTH - inputWidth) / 2).toFixed(2));
-    setleft -= diffPickerInput;
+    setleft -= Number(((PICKER_WIDTH - inputWidth) / 2).toFixed(2));
   }
 
   picker.style.top = `${Number(settop.toFixed(2))}px`;

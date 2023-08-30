@@ -20,7 +20,7 @@ import {
   testListOfDays,
   testOrdinalArr,
   testFormatArr
-} from './testConstants';
+} from './test.constants';
 
 const {
   INPUT_FORMATS,
