@@ -9,7 +9,7 @@ test/
 node_modules/
 example/
 .eslintignore
-.eslintrc
+.eslintrc.json
 .gitignore
 screenshots/
 test/
