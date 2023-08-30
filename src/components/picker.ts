@@ -101,6 +101,7 @@ const createMonthPicker = (
     const monthPicker = document.createElement('div') as HTMLDivElement;
     monthPicker.classList.add(BASE_PICKER_CLASS);
     monthPicker.classList.add(theme);
+    monthPicker.dataset.pickerOpen = 'false';
     monthPicker.append(...buildBaseContainers());
     ROOT_CONTAINER.append(monthPicker);
 

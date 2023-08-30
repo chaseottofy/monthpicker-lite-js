@@ -214,6 +214,10 @@ export interface MonthPickerInterface {
   getCloseOnSelect(): boolean;
   getOnlyShowCurrentMonth(): boolean;
   getAlignPickerMiddle(): boolean;
+  getInstances(): InstancesInterface;
+  getMonthPickerInstance(): HTMLElement | null;
+  getInputWrapperInstance(): HTMLElement | null;
+  getInputInstance(): HTMLInputElement | null;
   
   destroy(): void;
   disable(): void;

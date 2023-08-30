@@ -344,6 +344,10 @@ getFormat(): string;
 getCloseOnSelect(): boolean;
 getOnlyShowCurrentMonth(): boolean;
 getAlignPickerMiddle(): boolean;
+getInstances(): InstancesInterface;
+getMonthPickerInstance(): HTMLElement | null;
+getInputWrapperInstance(): HTMLElement | null;
+getInputInstance(): HTMLInputElement | null;
 
 destroy(): void;
 disable(): void;
@@ -471,6 +475,20 @@ getFormat(): string;
 getCloseOnSelect(): boolean;
 getOnlyShowCurrentMonth(): boolean;
 getAlignPickerMiddle(): boolean;
+
+/**
+ * The following four methods return HTMLElements || null if not initialized
+ * - They reference the DOM wrappers that are created for
+ *   the picker and input elements.
+ * @method getInstances() - Returns object of all instances
+ * @method getMonthPickerInstance() - Returns monthpicker instance
+ * @method getInputWrapperInstance() - Returns input wrapper instance
+ * @method getInputInstance() - Returns input instance
+ */
+getInstances(): InstancesInterface;
+getMonthPickerInstance(): HTMLElement | null;
+getInputWrapperInstance(): HTMLElement | null;
+getInputInstance(): HTMLInputElement | null;
 ```
 
 #### Modifiers (destroy, open, ect.)

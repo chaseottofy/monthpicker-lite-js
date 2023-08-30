@@ -18,3 +18,8 @@ export const testFormatArr: string[] = [
   'Jan 9th 2023',
   'Jan 9th, 2023',
 ];
+
+export const testDomDate: Date = new Date(2023, 0, 1);// Jan 1, 2023
+export const testDomDate2: Date = new Date(2023, 1, 1);// Feb 1, 2023
+
+export const testDomCallback = (date: Date) => date;

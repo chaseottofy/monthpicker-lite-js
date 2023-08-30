@@ -1,6 +1,6 @@
 {
   "name": "monthpicker-lite-js",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Lightweight datepicker for vanilla js and typescript",
   "type": "module",
   "main": "dist/monthpicker-lite-js.js",
@@ -69,6 +69,7 @@
     "@jest/globals": "^29.6.4",
     "@testing-library/dom": "^9.3.1",
     "@testing-library/jest-dom": "^6.1.2",
+    "@testing-library/user-event": "^14.4.3",
     "@types/eslint": "^8.44.2",
     "@types/node": "^20.5.6",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
@@ -80,8 +81,5 @@
     "ts-jest": "^29.1.1",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "@testing-library/user-event": "^14.4.3"
   }
 }

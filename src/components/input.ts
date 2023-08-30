@@ -24,10 +24,11 @@ const createInputInstance = (
   format: string,
   THEME: string,
 ): void => {
-  const inputWrapper = document.createElement('div') as HTMLDivElement;
+  const inputWrapper = document.createElement('div') as HTMLElement;
   inputWrapper.classList.add(BASE_INPUT_WRAPPER_CLASS);
   // inputWrapper inherits theme, as does the month picker
   inputWrapper.classList.add(THEME);
+  inputWrapper.dataset.pickerOpen = 'false';
 
   const input = document.createElement('input') as HTMLInputElement;
   input.classList.add(BASE_INPUT_CLASS);
