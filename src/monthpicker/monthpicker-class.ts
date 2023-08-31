@@ -29,7 +29,6 @@ import createMonthPicker from '../components/picker';
 import createInputInstance from '../components/input';
 
 const {
-  // DEFAULT_ROOT_ELEMENT,
   DEFAULT_THEME,
   DEFAULT_FORMAT,
   INPUT_FORMATS,
@@ -44,6 +43,8 @@ const {
   BASE_THROTTLE,
   BASE_DEBOUNCE,
   THEMES,
+  PICKER_THEME_DARK,
+  PICKER_THEME_LIGHT,
   STYLES_ID,
   FALLBACK_FONT,
 } = pickerConstants as PickerConstantsInterface;
@@ -195,10 +196,9 @@ export default class MonthPicker implements MonthPickerInterface {
       return;
     }
 
-    const [DARK_THEME, LIGHT_THEME] = THEMES;
-    inputWrapper.classList.remove(DARK_THEME);
-    inputWrapper.classList.remove(LIGHT_THEME);
-    inputWrapper.classList.add(this.theme);
+    inputWrapper.classList.remove(PICKER_THEME_DARK);
+    inputWrapper.classList.remove(PICKER_THEME_LIGHT);
+    inputWrapper.classList.add(this.theme === 'light' ? PICKER_THEME_LIGHT : PICKER_THEME_DARK);
     input.placeholder = formatDateForInput(date, this.format);
     input.dataset.dateValue = date.toString();
     input.dataset.format = this.format;
@@ -748,7 +748,6 @@ export default class MonthPicker implements MonthPickerInterface {
     if (inputWrapper) {
       inputWrapper.classList.add(INPUT_DISABLED_CLASS);
     }
-    // return inputWrapper && inputWrapper.classList.add(INPUT_DISABLED_CLASS);
   }
 
   /**
@@ -762,7 +761,6 @@ export default class MonthPicker implements MonthPickerInterface {
     if (inputWrapper) {
       inputWrapper.classList.remove(INPUT_DISABLED_CLASS);
     }
-    // return inputWrapper && inputWrapper.classList.remove(INPUT_DISABLED_CLASS);
   }
 
   /**
@@ -773,22 +771,10 @@ export default class MonthPicker implements MonthPickerInterface {
     if (this.isDestroyed || this.isDisabled) { return; }
     const { monthPicker }: InstancesInterface = this.instances;
     if (monthPicker && monthPicker.dataset.pickerOpen === 'true') {
-      this.open();
-    } else {
       this.close();
+    } else {
+      this.open();
     }
-    // if (monthPicker) {
-    //   if (monthPicker.dataset.pickerOpen === 'true') {
-    //     this.open();
-    //   } else {
-    //     this.close();
-    //   }
-    // }
-    // return monthPicker && (
-    //   monthPicker.classList.contains(PICKER_DISABLED_CLASS)
-    //     ? this.open()
-    //     : this.close()
-    // );
   }
 
   /**

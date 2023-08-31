@@ -1,4 +1,5 @@
 import { PickerConstantsInterface } from '../models/interfaces';
+import styles from 'monthpicker.module.css';
 
 const pickerConstants: PickerConstantsInterface = {
   /* ***************************************** */
@@ -10,37 +11,40 @@ const pickerConstants: PickerConstantsInterface = {
   PICKER_WIDTH: 272,
   POSITION_PADDING: 6,
   /* ***************************************** */
+  PICKER_THEME_DARK: styles.dark,
+  PICKER_THEME_LIGHT: styles.light,
 
   /* ***************************************** */
-  BASE_PICKER_CLASS: 'month-picker',
-  PICKER_DISABLED_CLASS: 'picker-disabled',
-  PICKER_TRANSITION_CLASS: 'picker-transition',
-  PICKER_SLIDE_PREFIX: 'slide-',
-  PICKER_FADE_OUT_CLASS: 'picker-fade-out',
+  BASE_PICKER_CLASS: styles.monthPicker,
+  PICKER_DISABLED_CLASS: styles.pickerDisabled,
+  PICKER_TRANSITION_CLASS: styles.pickerTransition,
+  PICKER_SLIDE_RIGHT_CLASS: styles.slideRight,
+  PICKER_SLIDE_LEFT_CLASS: styles.slideLeft,
+  PICKER_FADE_OUT_CLASS: styles.pickerFadeOut,
   /* ***************************************** */
 
-  PICKER_HEADER_CLASS: 'month-picker-header',
-  PICKER_TITLE_CLASS: 'month-year',
+  PICKER_HEADER_CLASS: styles.monthPickerHeader,
+  PICKER_TITLE_CLASS: styles.monthYear,
 
-  PICKER_NAV_BTN_WRAPPER_CLASS: 'nav-btns',
-  PICKER_NAV_BTN_PREV_CLASS: 'prev',
-  PICKER_NAV_BTN_NEXT_CLASS: 'next',
+  PICKER_NAV_BTN_WRAPPER_CLASS: styles.navBtns,
+  PICKER_NAV_BTN_PREV_CLASS: styles.prev,
+  PICKER_NAV_BTN_NEXT_CLASS: styles.next,
 
-  PICKER_WEEKDAYS_CLASS: 'weekdays',
-  PICKER_WEEKDAY_CLASS: 'weekday',
-  PICKER_DAYS_WRAPPER_CLASS: 'month-div',
-  DISABLED_DAY_CLASS: 'disabled-day',
+  PICKER_WEEKDAYS_CLASS: styles.weekdays,
+  PICKER_WEEKDAY_CLASS: styles.weekday,
+  PICKER_DAYS_WRAPPER_CLASS: styles.monthDiv,
+  DISABLED_DAY_CLASS: styles.disabledDay,
 
-  BASE_DAY_CLASS: 'day',
-  SELECTED_CLASS: 'selected-day',
+  BASE_DAY_CLASS: styles.day,
+  SELECTED_CLASS: styles.selectedDay,
 
-  PREV_MONTH_CLASS: 'prev-month',
-  NEXT_MONTH_CLASS: 'next-month',
+  PREV_MONTH_CLASS: styles.prevMonth,
+  NEXT_MONTH_CLASS: styles.nextMonth,
 
-  BASE_INPUT_WRAPPER_CLASS: 'month-picker-input-wrapper',
-  INPUT_WRAPPER_ACTIVE: 'picker-input-active',
-  INPUT_DISABLED_CLASS: 'picker-input-disabled',
-  BASE_INPUT_CLASS: 'month-picker-input',
+  BASE_INPUT_WRAPPER_CLASS: styles.monthPickerInputWrapper,
+  INPUT_WRAPPER_ACTIVE: styles.pickerInputActive,
+  INPUT_DISABLED_CLASS: styles.pickerInputDisabled,
+  BASE_INPUT_CLASS: styles.monthPickerInput,
 
   STYLES_ID: 'month-picker-style',
   FALLBACK_FONT: 'system-ui, -apple-system, Roboto, sans-serif',

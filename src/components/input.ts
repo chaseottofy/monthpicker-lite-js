@@ -9,6 +9,8 @@ import { PickerConstantsInterface } from '../models/interfaces';
 const {
   BASE_INPUT_WRAPPER_CLASS,
   BASE_INPUT_CLASS,
+  PICKER_THEME_DARK,
+  PICKER_THEME_LIGHT,
 } = pickerConstants as PickerConstantsInterface;
 
 /**
@@ -27,7 +29,7 @@ const createInputInstance = (
   const inputWrapper = document.createElement('div') as HTMLElement;
   inputWrapper.classList.add(BASE_INPUT_WRAPPER_CLASS);
   // inputWrapper inherits theme, as does the month picker
-  inputWrapper.classList.add(THEME);
+  inputWrapper.classList.add(THEME === 'light' ? PICKER_THEME_LIGHT : PICKER_THEME_DARK);
   inputWrapper.dataset.pickerOpen = 'false';
 
   const input = document.createElement('input') as HTMLInputElement;

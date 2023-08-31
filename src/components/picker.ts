@@ -21,6 +21,7 @@ const {
   BASE_DAY_CLASS,
   BASE_PICKER_CLASS,
   BASE_INPUT_CLASS,
+  BASE_INPUT_WRAPPER_CLASS,
   PICKER_HEADER_CLASS,
   PICKER_TITLE_CLASS,
   PICKER_NAV_BTN_WRAPPER_CLASS,
@@ -30,7 +31,8 @@ const {
   PICKER_WEEKDAY_CLASS,
   PICKER_DAYS_WRAPPER_CLASS,
   PICKER_DISABLED_CLASS,
-  PICKER_SLIDE_PREFIX,
+  PICKER_SLIDE_RIGHT_CLASS,
+  PICKER_SLIDE_LEFT_CLASS,
   NEXT_MONTH_CLASS,
   PREV_MONTH_CLASS,
   DISABLED_DAY_CLASS,
@@ -39,6 +41,8 @@ const {
   MID_MONTH,
   DAY_NAMES,
   DEFAULT_THEME,
+  PICKER_THEME_DARK,
+  PICKER_THEME_LIGHT,
 } = pickerConstants as PickerConstantsInterface;
 
 /**
@@ -78,8 +82,8 @@ const createMonthPicker = (
       const navButtons = document.createElement('div') as HTMLDivElement;
       navButtons.classList.add(PICKER_NAV_BTN_WRAPPER_CLASS);
       navButtons.append(
-        createNavButton('Previous Month'),
-        createNavButton('Next Month'),
+        createNavButton('Previous Month', PICKER_NAV_BTN_PREV_CLASS),
+        createNavButton('Next Month', PICKER_NAV_BTN_NEXT_CLASS),
       );
       monthPickerHeader.append(monthYearDiv, navButtons);
 
@@ -99,8 +103,9 @@ const createMonthPicker = (
     };
 
     const monthPicker = document.createElement('div') as HTMLDivElement;
+    const inputWrapper = document.querySelector(`.${BASE_INPUT_WRAPPER_CLASS}`) as HTMLDivElement;
     monthPicker.classList.add(BASE_PICKER_CLASS);
-    monthPicker.classList.add(theme);
+    monthPicker.classList.add(theme === 'dark' ? PICKER_THEME_DARK : PICKER_THEME_LIGHT);
     monthPicker.dataset.pickerOpen = 'false';
     monthPicker.append(...buildBaseContainers());
     ROOT_CONTAINER.append(monthPicker);
@@ -129,7 +134,8 @@ const createMonthPicker = (
     const populateMonthDiv = (days: Date[], direction = 'none') => {
       // slide left if prev button clicked, right if next button clicked
       // 'none' for initial load
-      const slideClass = `${PICKER_SLIDE_PREFIX}${direction}`;
+      // const slideClass = `${PICKER_SLIDE_PREFIX}${direction}`;
+      const slideClass = direction === 'left' ? PICKER_SLIDE_LEFT_CLASS : PICKER_SLIDE_RIGHT_CLASS;
       monthDiv.classList.add(slideClass);
       monthYearDiv.classList.add(slideClass);
       setTimeout(() => {
@@ -206,7 +212,6 @@ const createMonthPicker = (
       const clickedDate = parseDateString(
         clickedDay?.dataset.date as string,
       ) as Date;
-      // const clickedDate =
       const selectedDateObj: Date = new Date(selectedDate);
       const [clickedYear, clickedMonth]: number[] = [
         clickedDate.getFullYear(),
@@ -269,8 +274,12 @@ const createMonthPicker = (
       const nextButton = target.closest(`.${PICKER_NAV_BTN_NEXT_CLASS}`);
       const day = target.closest(`.${BASE_DAY_CLASS}`);
 
-      if (prevButton) { handlePrevMonth(); }
-      if (nextButton) { handleNextMonth(); }
+      if (prevButton) {
+        handlePrevMonth();
+      }
+      if (nextButton) {
+        handleNextMonth();
+      }
       if (day) {
         handleMonthDayClick(e);
         if (callbacks.length > 0) {
@@ -280,6 +289,8 @@ const createMonthPicker = (
         }
         if (closeOnSelect) {
           monthPicker.classList.add(`${PICKER_DISABLED_CLASS}`);
+          monthPicker.dataset.pickerOpen = 'false';
+          inputWrapper.dataset.pickerOpen = 'false';
         }
       }
     };

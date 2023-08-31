@@ -261,10 +261,13 @@ export interface PickerConstantsInterface {
   PICKER_WIDTH: number,
   POSITION_PADDING: number,
 
+  PICKER_THEME_DARK: string,
+  PICKER_THEME_LIGHT: string,
   BASE_PICKER_CLASS: string,
   PICKER_DISABLED_CLASS: string,
   PICKER_TRANSITION_CLASS: string,
-  PICKER_SLIDE_PREFIX: string,
+  PICKER_SLIDE_RIGHT_CLASS: string,
+  PICKER_SLIDE_LEFT_CLASS: string,
   PICKER_FADE_OUT_CLASS: string,
 
   PICKER_HEADER_CLASS: string,

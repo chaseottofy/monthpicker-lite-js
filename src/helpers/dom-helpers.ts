@@ -101,13 +101,12 @@ export function createCalendarSVG(): SVGElement {
   return svg1 as SVGElement;
 }
 
-export function createNavButton(title: string): HTMLButtonElement {
+export function createNavButton(title: string, btnClass: string): HTMLButtonElement {
   const navButton = document.createElement('button');
-  const cName = title.slice(0, 4).toLowerCase();
   navButton.ariaLabel = title;
-  navButton.classList.add(cName);
+  navButton.classList.add(btnClass);
   navButton.dataset.navtitle = title;
-  navButton.append(createCaret(cName));
+  navButton.append(createCaret(title.slice(0, 4).toLowerCase()));
   return navButton;
 }
 

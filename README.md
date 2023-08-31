@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/monthpicker-lite-js.svg)](https://badge.fury.io/js/monthpicker-lite-js)
 
-Zero-dependency, lightweight datepicker for Vanilla JS & Typescript.
+Zero-dependency, lightweight datepicker for Vanilla JS & Typescrip.
 
 ## <a href="https://stackblitz.com/edit/monthpicker-lite-js" target="_blank">Typescript Stackblitz Demo V. 1.1.5 ></a>
 
@@ -73,7 +73,8 @@ import { MonthPicker, MonthPickerInterface } ...
 #### Zero Dependencies
 - No external date handling libraries.
 - No external styling libraries.
-- Vanilla CSS & JS.
+- Vanilla JS W/ Typescript support.
+- CSS Modules to avoid class name collisions.
 
 #### Relies solely on native Date object and DOM API
 - Avoids common innerHTML pitfalls that can lead to XSS vulnerabilities.
@@ -548,6 +549,7 @@ open(): void;
 
 ```ts
 // Necessary CSS import (or just copy/paste the css into your own stylesheet)
+// Note that CSS classes are obfuscated through CSS Modules
 import 'monthpicker-lite-js/dist/monthpicker-lite-js.css';
 
 // MonthPickerOptionsInterface && 

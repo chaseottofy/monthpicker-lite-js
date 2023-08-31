@@ -44,12 +44,12 @@
   --tooltip-color: #fff
 }
 
-.month-picker *,
-.month-picker *:before,
-.month-picker *:after,
-.month-picker-input-wrapper *,
-.month-picker-input-wrapper *:before,
-.month-picker-input-wrapper *:after {
+.monthPicker *,
+.monthPicker *:before,
+.monthPicker *:after,
+.monthPickerInputWrapper *,
+.monthPickerInputWrapper *:before,
+.monthPickerInputWrapper *:after {
   /* font-family: inherit, sans-serif, system-ui, monospace; */
   box-sizing: border-box !important;
   margin: 0;
@@ -72,19 +72,19 @@
   -webkit-text-size-adjust: 100%;
 }
 
-.month-picker *:after,
-.month-picker *:before,
-.month-picker svg,
-.month-picker-input-wrapper *:before,
-.month-picker-input-wrapper *:after,
-.month-picker-input-wrapper svg {
+.monthPicker *:after,
+.monthPicker *:before,
+.monthPicker svg,
+.monthPickerInputWrapper *:before,
+.monthPickerInputWrapper *:after,
+.monthPickerInputWrapper svg {
   pointer-events: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none
 }
 
-.month-picker-input-wrapper {
+.monthPickerInputWrapper {
   position: relative;
   margin: 0;
   padding: 0;
@@ -97,16 +97,16 @@
   color: var(--white1)
 }
 
-.picker-input-active {
+.pickerInputActive {
   color: var(--white1)
 }
 
-.picker-input-active .month-picker-input {
+.pickerInputActive .monthPickerInput {
   border: 1px solid var(--selected-day-bg) !important;
   background: var(--black2)
 }
 
-.month-picker-input-wrapper span {
+.monthPickerInputWrapper span {
   height: 100% !important;
   width: 18%;
   position: absolute;
@@ -120,7 +120,7 @@
   pointer-events: none
 }
 
-.month-picker-input {
+.monthPickerInput {
   background: var(--black1);
   color: inherit;
   letter-spacing: .25px;
@@ -138,34 +138,34 @@
   transition: border .2s ease-in-out
 }
 
-.month-picker-input:hover {
+.monthPickerInput:hover {
   background: var(--black0)
 }
 
-.month-picker-input:active,
-.month-picker-input:focus-visible {
+.monthPickerInput:active,
+.monthPickerInput:focus-visible {
   outline: 1px solid var(--selected-day-bg) !important;
   outline-offset: -1px !important;
   filter: brightness(1.1)
 }
 
-.month-picker-input::placeholder {
+.monthPickerInput::placeholder {
   color: inherit
 }
 
-.picker-input-disabled {
+.pickerInputDisabled {
   cursor: not-allowed;
   opacity: .6;
   pointer-events: none;
   user-select: none;
 }
 
-.picker-input-disabled .month-picker-input {
+.pickerInputDisabled .monthPickerInput {
   pointer-events: none;
   user-select: none;
 }
 
-.month-picker {
+.monthPicker {
   background: var(--black1);
   border-radius: 8px;
   box-shadow: var(--bs-md);
@@ -184,14 +184,14 @@
   opacity: 1
 }
 
-.picker-fade-out {
+.pickerFadeOut {
   opacity: 0;
   transition: opacity .15s ease-in-out;
   user-select: none !important;
   pointer-events: none !important
 }
 
-.picker-disabled {
+.pickerDisabled {
   user-select: none !important;
   pointer-events: none !important;
   opacity: 0 !important;
@@ -204,13 +204,13 @@
   visibility: hidden;
 }
 
-.picker-transition {
+.pickerTransition {
   transition-property: opacity;
   transition-duration: .15s;
   transition-timing-function: ease-in-out
 }
 
-.month-picker button {
+.monthPicker button {
   -webkit-appearance: button;
   -moz-appearance: button;
   appearance: button;
@@ -219,22 +219,21 @@
   cursor: pointer;
   font-weight: 500;
   padding: 0;
-
   position: relative
 }
 
-.month-picker button:focus-visible {
+.monthPicker button:focus-visible {
   box-shadow: none;
   outline: none !important;
 }
 
-.month-picker svg {
+.monthPicker svg {
   fill: var(--white1);
   height: 24px;
   width: 24px
 }
 
-.month-picker-header {
+.monthPickerHeader {
   align-items: center;
   display: flex;
   justify-content: space-between;
@@ -242,7 +241,7 @@
   height: 32px
 }
 
-.month-year {
+.monthYear {
   color: var(--white3);
   cursor: default;
   font-size: 13px;
@@ -253,7 +252,7 @@
   width: auto
 }
 
-.nav-btns {
+.navBtns {
   height: 100%;
   justify-content: flex-end;
   position: relative;
@@ -262,7 +261,7 @@
   z-index: 1000
 }
 
-.nav-btns,
+.navBtns,
 .next,
 .prev {
   align-items: center;
@@ -363,7 +362,7 @@
   position: relative
 }
 
-.month-div {
+.monthDiv {
   grid-gap: 0;
   display: grid;
   font-weight: 400;
@@ -375,7 +374,7 @@
 }
 
 .day,
-.month-div {
+.monthDiv {
   position: relative;
   width: 100%
 }
@@ -394,19 +393,19 @@
   z-index: 1
 }
 
-.disabled-day {
+.disabledDay {
   color: transparent !important;
   cursor: default !important;
   pointer-events: none !important;
   user-select: none !important
 }
 
-.selected-day {
+.selectedDay {
   color: var(--selected-day-color)
 }
 
-.next-month,
-.prev-month {
+.nextMonth,
+.prevMonth {
   background: var(--prevnext-background) !important;
   color: var(--accents-5) !important
 }
@@ -424,12 +423,12 @@
   z-index: -1
 }
 
-.next-month:before,
-.prev-month:before {
+.nextMonth:before,
+.prevMonth:before {
   background: var(--prevnext-background) !important
 }
 
-.selected-day:before {
+.selectedDay:before {
   background: var(--selected-day-bg)
 }
 
@@ -439,20 +438,20 @@
   transition: background .15s ease-out
 }
 
-.next-month:focus-visible:before,
-.prev-month:focus-visible:before,
-.next-month:hover:before,
-.prev-month:hover:before {
+.nextMonth:focus-visible:before,
+.prevMonth:focus-visible:before,
+.nextMonth:hover:before,
+.prevMonth:hover:before {
   background: var(--prevnext-background-hover) !important;
   transition: background .15s ease-out
 }
 
-.selected-day:focus-visible:before,
-.selected-day:hover:before {
+.selectedDay:focus-visible:before,
+.selectedDay:hover:before {
   background: var(--selected-day-bg-hover) !important
 }
 
-.slide-right {
+.slideRight {
   animation-name: slide-right;
   animation-duration: .15s;
   animation-fill-mode: forwards;
@@ -460,7 +459,7 @@
   animation-timing-function: cubic-bezier(.39, .575, .565, 1)
 }
 
-.slide-left {
+.slideLeft {
   animation-name: slide-left;
   animation-duration: .15s;
   animation-fill-mode: forwards;
