@@ -1,5 +1,5 @@
 import { PickerConstantsInterface } from '../models/interfaces';
-import styles from 'monthpicker.module.css';
+import styles from '../monthpicker.module.css';
 
 const pickerConstants: PickerConstantsInterface = {
   /* ***************************************** */

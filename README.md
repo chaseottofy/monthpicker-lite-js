@@ -2,9 +2,11 @@
 
 [![npm version](https://badge.fury.io/js/monthpicker-lite-js.svg)](https://badge.fury.io/js/monthpicker-lite-js)
 
-Zero-dependency, lightweight datepicker for Vanilla JS & Typescrip.
+Zero-dependency, lightweight datepicker for Vanilla JS & Typescript.
 
-## <a href="https://stackblitz.com/edit/monthpicker-lite-js" target="_blank">Typescript Stackblitz Demo V. 1.1.5 ></a>
+**8/31/23: Since converting to css modules, the DOM tests need re-work**
+
+## <a href="https://stackblitz.com/edit/monthpicker-lite-js" target="_blank">Typescript Stackblitz Demo V. 1.1.9 ></a>
 
 <img src="screenshots/aaaa.png">
 
@@ -111,6 +113,10 @@ import { MonthPicker, MonthPickerInterface } ...
 ---
 
 ## Configuration
+
+**Important note relative to CSS Modules:**
+- The CSS classes are obfuscated through CSS Modules to avoid class name collisions.
+- `styles` is imported in the (src/constants.ts)[] file and is then used to reference the CSS classes throughout the codebase.
 
 The monthpicker constructor consists of 8 total paramters, 7 of which are optional.
 The simplest configuration is to pass only the rootContainer parameter.

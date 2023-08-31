@@ -12,7 +12,7 @@ export default defineConfig({
   dts: true,
   sourcemap: false,
   clean: true,
-  minify: false,
+  minify: true,
   target: 'es2020',
   tsconfig: 'tsconfig.json',
   external: ['tslib'],

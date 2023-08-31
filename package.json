@@ -1,6 +1,6 @@
 {
   "name": "monthpicker-lite-js",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "description": "Lightweight datepicker for vanilla js and typescript",
   "type": "module",
   "main": "dist/monthpicker-lite-js.js",
