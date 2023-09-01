@@ -304,6 +304,4 @@ export interface PickerConstantsInterface {
 
   DEFAULT_THEME: string,
   THEMES: string[],
-
-  // DEFAULT_ROOT_ELEMENT: HTMLElement,
 }

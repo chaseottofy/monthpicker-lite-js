@@ -42,9 +42,6 @@ describe('getOrdinal', () => {
     for (const [index, str] of testOrdinalArr.entries()) {
       expect(getOrdinal(index + 1)).toBe(str);
     }
-    // testOrdinalArr.forEach((str, index) => {
-    //   expect(getOrdinal(index + 1)).toBe(str);
-    // });
   });
 });
 

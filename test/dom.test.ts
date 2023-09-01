@@ -27,18 +27,15 @@ import MonthPicker from '../src/monthpicker/monthpicker-class';
 import pickerConstants from '../src/constants/constants';
 import { PickerConstantsInterface } from '../src/models/interfaces';
 
-const {
-  BASE_THROTTLE,
-  BASE_DAY_CLASS,
-  MID_MONTH,
-  PICKER_NAV_BTN_NEXT_CLASS,
-} = pickerConstants as PickerConstantsInterface;
+const { BASE_THROTTLE } = pickerConstants as PickerConstantsInterface;
 
 // Create two rootContainers to test setRootContainer() method
 const rootContainer = document.createElement('div') as HTMLElement;
 rootContainer.classList.add('rootContainer');
+
 const rootContainer2 = document.createElement('div') as HTMLElement;
 rootContainer2.classList.add('rootContainer2');
+
 document.body.append(rootContainer, rootContainer2);
 
 const monthPicker = new MonthPicker(
@@ -170,8 +167,7 @@ describe('jsdom - monthPicker public methods', () => {
     monthPicker.open();
     monthPicker.setCloseOnSelect(true);
     const monthPickerTempInst = monthPicker.getMonthPickerInstance() as HTMLElement;
-
-    const tempDayInst = document.querySelectorAll(`.${BASE_DAY_CLASS}`)[MID_MONTH] as HTMLButtonElement;
+    const tempDayInst = monthPickerTempInst.lastChild?.childNodes[14] as HTMLButtonElement;
     tempDayInst.click();
 
     setTimeout(() => {
@@ -188,9 +184,8 @@ describe('jsdom - monthPicker public methods', () => {
       monthPicker.setDate(new Date(tempyear, 0, 1));
     }
 
-    const nextMonthButton = document.querySelector(
-      `.${PICKER_NAV_BTN_NEXT_CLASS}`
-    ) as HTMLButtonElement;
+    const monthPickerTempInst = monthPicker.getMonthPickerInstance() as HTMLElement;
+    const nextMonthButton = monthPickerTempInst.firstChild?.lastChild?.lastChild as HTMLButtonElement;
     nextMonthButton.click();
 
     setTimeout(() => {
@@ -207,9 +202,8 @@ describe('jsdom - monthPicker public methods', () => {
       monthPicker.setDate(new Date(tempyear, 11, 1));
     }
 
-    const prevMonthButton = document.querySelector(
-      `.${PICKER_NAV_BTN_NEXT_CLASS}`
-    ) as HTMLButtonElement;
+    const monthPickerTempInst = monthPicker.getMonthPickerInstance() as HTMLElement;
+    const prevMonthButton = monthPickerTempInst.firstChild?.lastChild?.firstChild as HTMLButtonElement;
     prevMonthButton.click();
 
     setTimeout(() => {
@@ -251,9 +245,8 @@ describe('jsdom - monthPicker public methods', () => {
       testLen / BASE_THROTTLE
     ) + padding;
 
-    const nextMonthButton = document.querySelector(
-      `.${PICKER_NAV_BTN_NEXT_CLASS}`
-    ) as HTMLButtonElement;
+    const monthPickerTempInst = monthPicker.getMonthPickerInstance() as HTMLElement;
+    const nextMonthButton = monthPickerTempInst.firstChild?.lastChild?.lastChild as HTMLButtonElement;
 
     const testThrottleInterval = setInterval(() => {
       nextMonthButton.click();

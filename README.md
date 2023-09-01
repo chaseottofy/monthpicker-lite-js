@@ -4,8 +4,6 @@
 
 Zero-dependency, lightweight datepicker for Vanilla JS & Typescript.
 
-**8/31/23: Since converting to css modules, the DOM tests need re-work**
-
 ## <a href="https://stackblitz.com/edit/monthpicker-lite-js" target="_blank">Typescript Stackblitz Demo V. 1.1.9 ></a>
 
 <img src="screenshots/aaaa.png">
